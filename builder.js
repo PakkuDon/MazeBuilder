@@ -1,23 +1,22 @@
-function Builder(canvas) {
+function Builder(canvasId) {
 	this.strategies = {
 		'rbt' : null,
 		'kruskal' : null
 	};
-	this.canvas = canvas;
+	this.canvasId = canvasId;
 	this.strategy = null;
-	
-	this.setStrategy(strategy) {
+
+	this.setStrategy = function(strategy) {
 		this.strategy = strategies[strategy];
 	}
-	
-	this.build = function(width, height, seed) {
-		strategy.reset();
-		strategy.setSize(width, height);
-		strategy.seed = seed;
+
+	this.build = function(maze, width, height, seed) {
+		strategy.initialise(width, height, seed);
 		// TODO: Draw
 		// TODO: Null check
 		var intervalID = setInterval(function() {
-			strategy.build();
+			strategy.build(maze);
+      maze.draw(canvasId);
 			if (strategy.done()) {
 				clearInterval(intervalID);
 			}

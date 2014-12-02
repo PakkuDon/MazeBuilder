@@ -2,11 +2,15 @@
 <html>
 	<head>
 		<title>Maze Builder</title>
+        <script type="text/javascript" src="maze.js"></script>
+        <script type="text/javascript" src="builder.js"></script>
+        <script type="text/javascript" src="depthbuilder.js"></script>
 		<style>
-			#body {
-				
-			}
-			
+			label {
+                width: 75px;
+                display: inline-block;
+            }
+
 			#canvasPane {
 				float: left;
 				height: 300px;
@@ -16,12 +20,12 @@
 			#view {
 				border: 1px solid #000;
 			}
-			
+
 			#options {
 				height: 300px;
 				margin-left: 225px;
 			}
-			
+
 			.clear {
 				clear: both;
 			}
@@ -42,18 +46,28 @@
 				<form onSubmit="return false;">
 					<fieldset>
 						<legend>Build options</legend>
-						<label for="width">Width</label>
-						<input type="number" id="width" />
-						<label for="height">Height</label>
-						<input type="number" id="height" />
-						<label for="seed">Seed</label>
-						<input type="number" id="seed" />
-						<label for="algorithm">Algorithm</label>
-						<select id="algorithm">
-							<option value="dfs">Depth-first Search</option>
-							<option value="kruskal">Randomized Kruskal's</option>
-						</select>
-						<input type="submit" value="Generate" />
+                        <p>
+                            <label for="width">Width</label>
+                            <input type="number" id="width" />
+                        </p>
+                        <p>
+                            <label for="height">Height</label>
+                            <input type="number" id="height" />
+                        </p>
+                        <p>
+                            <label for="seed">Seed</label>
+                            <input type="number" id="seed" />
+                        </p>
+                        <p>
+                            <label for="algorithm">Algorithm</label>
+                            <select id="algorithm">
+                                <option value="dfs">Depth-first Search</option>
+                                <option value="kruskal">Randomized Kruskal's</option>
+                            </select>
+                        </p>
+                        <p>
+                            <input type="submit" value="Generate" />
+                        </p>
 					</fieldset>
 				</form>
 			</div>
