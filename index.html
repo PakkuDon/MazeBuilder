@@ -31,6 +31,15 @@
 			}
 
 		</style>
+		<script type="text/javascript">
+			// Testing 
+			function generateMaze() {
+				var maze = new Maze();
+				var builder = new Builder("view");
+				var db = new DepthBuilder();
+				alert("Clear");
+			}
+		</script>
 	</head>
 	<body>
 		<header>
@@ -43,7 +52,7 @@
 				</canvas>
 			</div>
 			<div id="options">
-				<form onSubmit="return false;">
+				<form onSubmit="generateMaze(); return false;">
 					<fieldset>
 						<legend>Build options</legend>
                         <p>

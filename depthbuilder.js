@@ -38,14 +38,44 @@ function DepthBuilder () {
 	};
 
   this.getUnvisitedNeighbours = function(maze, x, y) {
-
+    var grid = maze.grid;
+    var neighbours = [];
+	
+	// Check north cell
+	if (x < maze.width && x >= 0 && y - 1 < maze.height && y - 1 >= 0) {
+		neighbours.push({
+			x: x, 
+			y: y - 1
+		});
+	}
+	// Check east cell
+	if (x + 1 < maze.width && x + 1 >= 0 && y < maze.height && y >= 0) {
+		neighbours.push({
+			x: x + 1, 
+			y: y
+		});
+	}
+	// Check south cell
+	if (x < maze.width && x >= 0 && y + 1 < maze.height && y + 1>= 0) {
+		neighbours.push({
+			x: x, 
+			y: y + 1
+		});
+	}
+	// Check west cell
+	if (x - 1 < maze.width && x - 1 >= 0 && y < maze.height && y >= 0) {
+		neighbours.push({
+			x: x - 1, 
+			y: y
+		});
+	}
+	return neighbours;
   }
 
 	this.build = function(maze) {
-    // Push current to stack
-
-
+		// Push current to stack
+		this.stack.push(this.current);
 		// Mark current as visited
-    this.visited[this.current.x][this.current.y] = true;
+		this.visited[this.current.x][this.current.y] = true;
 	};
 }
