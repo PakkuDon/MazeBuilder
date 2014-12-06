@@ -46,7 +46,7 @@ function Maze(width, height) {
     context.strokeStyle = "#FFF";
 
     for (var i = 0; i < this.edges.length; i++) {
-      var edge = edges[i];
+      var edge = this.edges[i];
 
       context.moveTo(edge.aX, edge.aY);
       context.lineTo(edge.bX, edge.bY);

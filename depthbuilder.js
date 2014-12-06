@@ -2,7 +2,7 @@ function DepthBuilder () {
 	this.width = 0;
 	this.height = 0;
 	this.seed = 0;
-	this.visisted = [[]];
+	this.visited = [[]];
   this.done = false;
   this.current = {};
   this.stack = [];

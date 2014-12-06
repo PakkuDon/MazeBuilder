@@ -32,11 +32,11 @@
 
 		</style>
 		<script type="text/javascript">
-			// Testing 
+			// Testing
 			function generateMaze() {
-				var maze = new Maze();
 				var builder = new Builder("view");
-				var db = new DepthBuilder();
+                builder.setStrategy("rbt");
+                builder.build(50, 50, 50);
 				alert("Clear");
 			}
 		</script>
