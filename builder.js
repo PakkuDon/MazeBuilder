@@ -10,8 +10,8 @@ function Builder(canvasId) {
 		this.strategy = this.strategies[strategy];
 	}
 
-	this.build = function(width, height, seed) {
-		this.strategy.initialise(width, height, seed);
+	this.build = function(width, height) {
+		this.strategy.initialise(width, height);
     var maze = new Maze(width, height);
     // Because lol closures
     var self = this;
@@ -20,8 +20,12 @@ function Builder(canvasId) {
 			self.strategy.build(maze);
       maze.draw(canvasId);
 			if (self.strategy.done) {
+        // Remove marker and clear interval when done
+        maze.marker.x = -1;
+        maze.marker.y = -1;
+        maze.draw(canvasId);
 				clearInterval(intervalID);
 			}
-		}, 1000);
+		}, 50);
 	}
 }

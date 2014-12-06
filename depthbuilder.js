@@ -1,7 +1,6 @@
 function DepthBuilder () {
 	this.width = 0;
 	this.height = 0;
-	this.seed = 0;
 	this.visited = [[]];
   this.done = false;
   this.current = {};
@@ -9,10 +8,9 @@ function DepthBuilder () {
   this.visitedCount = 0;
 
   // TODO: Pass in start and end points
-	this.initialise = function(width, height, seed) {
+	this.initialise = function(width, height) {
     this.width = width;
 		this.height = height;
-		this.seed = seed;
     this.done = false;
 
     // Clear visited flags array
@@ -45,28 +43,36 @@ function DepthBuilder () {
     var neighbours = [];
 
     // Check north cell
-    if (x < maze.width && x >= 0 && y - 1 < maze.height && y - 1 >= 0) {
+    if (x < maze.width && x >= 0
+        && y - 1 < maze.height && y - 1 >= 0
+        && !this.visited[x][y - 1]) {
       neighbours.push({
         x: x,
         y: y - 1
       });
     }
     // Check east cell
-    if (x + 1 < maze.width && x + 1 >= 0 && y < maze.height && y >= 0) {
+    if (x + 1 < maze.width && x + 1 >= 0
+        && y < maze.height && y >= 0
+        && !this.visited[x + 1][y]) {
       neighbours.push({
         x: x + 1,
         y: y
       });
     }
     // Check south cell
-    if (x < maze.width && x >= 0 && y + 1 < maze.height && y + 1>= 0) {
+    if (x < maze.width && x >= 0
+        && y + 1 < maze.height && y + 1>= 0
+        && !this.visited[x][y + 1]) {
       neighbours.push({
         x: x,
         y: y + 1
       });
     }
     // Check west cell
-    if (x - 1 < maze.width && x - 1 >= 0 && y < maze.height && y >= 0) {
+    if (x - 1 < maze.width && x - 1 >= 0
+        && y < maze.height && y >= 0
+        && !this.visited[x - 1][y]) {
       neighbours.push({
         x: x - 1,
         y: y
@@ -101,5 +107,7 @@ function DepthBuilder () {
         this.current = this.stack[this.stack.length - 1];
       }
     }
+    // Move marker
+    maze.setMarker(this.current.x, this.current.y);
 	};
 }

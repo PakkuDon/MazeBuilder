@@ -29,8 +29,8 @@ function Maze(width, height) {
 	}
 
 	this.setMarker = function(x, y) {
-		marker.x = x;
-		marker.y = y;
+		this.marker.x = x;
+		this.marker.y = y;
 	};
 
   this.draw = function(canvasId) {
@@ -47,16 +47,23 @@ function Maze(width, height) {
 
     for (var i = 0; i < this.edges.length; i++) {
       var edge = this.edges[i];
+      var aX = edge.aX / this.width * canvasWidth;
+      var aY = edge.aY / this.height * canvasHeight;
+      var bX = edge.bX / this.width * canvasWidth;
+      var bY = edge.bY / this.height * canvasHeight;
 
-      context.moveTo(edge.aX, edge.aY);
-      context.lineTo(edge.bX, edge.bY);
+      context.moveTo(aX, aY);
+      context.lineTo(bX, bY);
       context.stroke();
     }
 
     // Draw marker
+    context.strokeStyle = "#F00";
     context.fillStyle = "#F00";
     context.beginPath();
-    context.arc(this.marker.x, this.marker.y, 2, 0, 2 * Math.PI);
+    context.arc(this.marker.x / this.width * canvasWidth,
+                this.marker.y / this.height * canvasHeight,
+                1, 0, 2 * Math.PI);
     context.fill();
   }
 }

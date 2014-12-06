@@ -36,8 +36,7 @@
 			function generateMaze() {
 				var builder = new Builder("view");
                 builder.setStrategy("rbt");
-                builder.build(50, 50, 50);
-				alert("Clear");
+                builder.build(10, 10);
 			}
 		</script>
 	</head>
@@ -62,10 +61,6 @@
                         <p>
                             <label for="height">Height</label>
                             <input type="number" id="height" />
-                        </p>
-                        <p>
-                            <label for="seed">Seed</label>
-                            <input type="number" id="seed" />
                         </p>
                         <p>
                             <label for="algorithm">Algorithm</label>
