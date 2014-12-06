@@ -6,10 +6,11 @@ function DepthBuilder () {
   this.done = false;
   this.current = {};
   this.stack = [];
+  this.visitedCount = 0;
 
   // TODO: Pass in start and end points
 	this.initialise = function(width, height, seed) {
-		this.width = width;
+    this.width = width;
 		this.height = height;
 		this.seed = seed;
     this.done = false;
@@ -35,47 +36,70 @@ function DepthBuilder () {
     while (this.stack.length > 0) {
       this.stack.pop();
     }
+
+    this.visitedCount = 0;
 	};
 
   this.getUnvisitedNeighbours = function(maze, x, y) {
     var grid = maze.grid;
     var neighbours = [];
-	
-	// Check north cell
-	if (x < maze.width && x >= 0 && y - 1 < maze.height && y - 1 >= 0) {
-		neighbours.push({
-			x: x, 
-			y: y - 1
-		});
-	}
-	// Check east cell
-	if (x + 1 < maze.width && x + 1 >= 0 && y < maze.height && y >= 0) {
-		neighbours.push({
-			x: x + 1, 
-			y: y
-		});
-	}
-	// Check south cell
-	if (x < maze.width && x >= 0 && y + 1 < maze.height && y + 1>= 0) {
-		neighbours.push({
-			x: x, 
-			y: y + 1
-		});
-	}
-	// Check west cell
-	if (x - 1 < maze.width && x - 1 >= 0 && y < maze.height && y >= 0) {
-		neighbours.push({
-			x: x - 1, 
-			y: y
-		});
-	}
-	return neighbours;
+
+    // Check north cell
+    if (x < maze.width && x >= 0 && y - 1 < maze.height && y - 1 >= 0) {
+      neighbours.push({
+        x: x,
+        y: y - 1
+      });
+    }
+    // Check east cell
+    if (x + 1 < maze.width && x + 1 >= 0 && y < maze.height && y >= 0) {
+      neighbours.push({
+        x: x + 1,
+        y: y
+      });
+    }
+    // Check south cell
+    if (x < maze.width && x >= 0 && y + 1 < maze.height && y + 1>= 0) {
+      neighbours.push({
+        x: x,
+        y: y + 1
+      });
+    }
+    // Check west cell
+    if (x - 1 < maze.width && x - 1 >= 0 && y < maze.height && y >= 0) {
+      neighbours.push({
+        x: x - 1,
+        y: y
+      });
+    }
+    return neighbours;
   }
 
 	this.build = function(maze) {
-		// Push current to stack
-		this.stack.push(this.current);
-		// Mark current as visited
-		this.visited[this.current.x][this.current.y] = true;
+    // If all cells visited, set flag and stop processing grid
+    if (this.visitedCount == this.width * this.height) {
+      this.done = true;
+    }
+    else {
+      var adjacentCells = this.getUnvisitedNeighbours(
+        maze, this.current.x, this.current.y);
+
+      // If current cell has unvisited neighbours, select one,
+      // link cells, push cell onto stack and update visited stats
+      if (adjacentCells.length > 0) {
+        var next = adjacentCells[Math.floor(Math.random() * adjacentCells.length)];
+        maze.edges.push(new Edge(this.current.x, this.current.y, next.x, next.y));
+        this.stack.push(next);
+        this.current = next;
+
+        this.visitedCount++;
+        this.visited[this.current.x][this.current.y] = true;
+      }
+      // Else, backtrack to previous cell
+      else {
+        this.stack.pop();
+        this.current = this.stack[this.stack.length - 1];
+      }
+    }
 	};
 }

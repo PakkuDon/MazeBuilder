@@ -4,9 +4,11 @@ function Cell(x, y) {
 	this.neighbours = [];
 }
 
-function Edge(cellA, cellB) {
-	this.cellA = cellA;
-	this.cellB = cellB;
+function Edge(aX, aY, bX, bY) {
+	this.aX = aX;
+  this.aY = aY;
+  this.bX = bX;
+  this.bY = bY;
 }
 
 function Maze(width, height) {
@@ -44,11 +46,10 @@ function Maze(width, height) {
     context.strokeStyle = "#FFF";
 
     for (var i = 0; i < this.edges.length; i++) {
-      var cellA = this.edges[i].cellA;
-      var cellB = this.edges[i].cellB;
+      var edge = edges[i];
 
-      context.moveTo(cellA.x, cellA.y);
-      context.lineTo(cellB.x, cellB.y);
+      context.moveTo(edge.aX, edge.aY);
+      context.lineTo(edge.bX, edge.bY);
       context.stroke();
     }
 
