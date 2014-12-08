@@ -5,7 +5,7 @@ function Cell(x, y) {
 }
 
 function Edge(aX, aY, bX, bY) {
-	this.aX = aX;
+  this.aX = aX;
   this.aY = aY;
   this.bX = bX;
   this.bY = bY;
@@ -35,22 +35,22 @@ function Maze(width, height) {
 
   this.draw = function(canvasId) {
     var canvas = document.getElementById(canvasId);
-    var canvasWidth = canvas.width;
-    var canvasHeight = canvas.height;
+    var cellWidth = canvas.width / this.width;
+    var cellHeight = canvas.height / this.height;
     var context = canvas.getContext("2d");
 
     context.fillStyle = "#000";
-    context.fillRect(0, 0, canvasWidth, canvasHeight);
+    context.fillRect(0, 0, canvas.width, canvas.height);
 
     // Draw edges
     context.strokeStyle = "#FFF";
 
     for (var i = 0; i < this.edges.length; i++) {
       var edge = this.edges[i];
-      var aX = edge.aX / this.width * canvasWidth;
-      var aY = edge.aY / this.height * canvasHeight;
-      var bX = edge.bX / this.width * canvasWidth;
-      var bY = edge.bY / this.height * canvasHeight;
+      var aX = edge.aX * cellWidth + (cellWidth / 2);
+      var aY = edge.aY * cellHeight + (cellHeight / 2);
+      var bX = edge.bX * cellWidth + (cellWidth / 2);
+      var bY = edge.bY * cellHeight + (cellHeight / 2);
 
       context.moveTo(aX, aY);
       context.lineTo(bX, bY);
@@ -61,8 +61,8 @@ function Maze(width, height) {
     context.strokeStyle = "#F00";
     context.fillStyle = "#F00";
     context.beginPath();
-    context.arc(this.marker.x / this.width * canvasWidth,
-                this.marker.y / this.height * canvasHeight,
+    context.arc(this.marker.x * cellWidth + (cellWidth / 2),
+                this.marker.y * cellHeight + (cellHeight / 2),
                 1, 0, 2 * Math.PI);
     context.fill();
   }

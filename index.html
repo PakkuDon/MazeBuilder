@@ -19,6 +19,7 @@
 
 			#view {
 				border: 1px solid #000;
+                background-color: #000;
 			}
 
 			#options {
@@ -32,11 +33,13 @@
 
 		</style>
 		<script type="text/javascript">
-			// Testing
 			function generateMaze() {
 				var builder = new Builder("view");
+                var width = document.getElementById("width").value;
+                var height = document.getElementById("height").value;
+                // TODO: Validation
                 builder.setStrategy("rbt");
-                builder.build(10, 10);
+                builder.build(width, height);
 			}
 		</script>
 	</head>

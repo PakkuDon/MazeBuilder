@@ -30,12 +30,15 @@ function DepthBuilder () {
     this.current.x = 0;
     this.current.y = 0;
 
+    // Mark current as visited
+    this.visitedCount = 0;
+    this.visited[this.current.x][this.current.y] = true;
+    this.visitedCount++;
+
     // Clear stack
     while (this.stack.length > 0) {
       this.stack.pop();
     }
-
-    this.visitedCount = 0;
 	};
 
   this.getUnvisitedNeighbours = function(maze, x, y) {
@@ -98,8 +101,9 @@ function DepthBuilder () {
         this.stack.push(next);
         this.current = next;
 
-        this.visitedCount++;
+        // Mark current cell as visited
         this.visited[this.current.x][this.current.y] = true;
+        this.visitedCount++;
       }
       // Else, backtrack to previous cell
       else {
