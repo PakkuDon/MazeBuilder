@@ -1,69 +1,69 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Maze Builder</title>
+    <head>
+        <title>Maze Builder</title>
         <script type="text/javascript" src="maze.js"></script>
         <script type="text/javascript" src="builder.js"></script>
         <script type="text/javascript" src="depthbuilder.js"></script>
-		<style>
-			label {
+        <style>
+            label {
                 width: 75px;
                 display: inline-block;
             }
 
-			#canvasPane {
-				float: left;
-				height: 300px;
-				padding: 9px;
-			}
+            #canvasPane {
+                float: left;
+                height: 300px;
+                padding: 9px;
+            }
 
-			#view {
-				border: 1px solid #000;
+            #view {
+                border: 1px solid #000;
                 background-color: #000;
-			}
+            }
 
-			#options {
-				height: 300px;
-				margin-left: 225px;
-			}
+            #options {
+                height: 300px;
+                margin-left: 225px;
+            }
 
-			.clear {
-				clear: both;
-			}
+            .clear {
+                clear: both;
+            }
 
-		</style>
-		<script type="text/javascript">
-			function generateMaze() {
-				var builder = new Builder("view");
+        </style>
+        <script type="text/javascript">
+            function generateMaze() {
+                var builder = new Builder("view");
                 var width = document.getElementById("width").value;
                 var height = document.getElementById("height").value;
                 // TODO: Validation
                 builder.setStrategy("rbt");
                 builder.build(width, height);
-			}
-		</script>
-	</head>
-	<body>
-		<header>
-			<h1>Maze Builder</h1>
-		</header>
-		<div id="body">
-			<div id="canvasPane">
-				<canvas id="view" width="200" height="200">
-					Your browser does not support the canvas tag.
-				</canvas>
-			</div>
-			<div id="options">
-				<form onSubmit="generateMaze(); return false;">
-					<fieldset>
-						<legend>Build options</legend>
+            }
+        </script>
+    </head>
+    <body>
+        <header>
+            <h1>Maze Builder</h1>
+        </header>
+        <div id="body">
+            <div id="canvasPane">
+                <canvas id="view" width="200" height="200">
+                    Your browser does not support the canvas tag.
+                </canvas>
+            </div>
+            <div id="options">
+                <form onSubmit="generateMaze(); return false;">
+                    <fieldset>
+                        <legend>Build options</legend>
                         <p>
                             <label for="width">Width</label>
-                            <input type="number" id="width" />
+                            <input type="number" required="required" min="1" max="25" id="width" />
                         </p>
                         <p>
                             <label for="height">Height</label>
-                            <input type="number" id="height" />
+                            <input type="number" required="required" min="1" max="25" id="height" />
                         </p>
                         <p>
                             <label for="algorithm">Algorithm</label>
@@ -75,13 +75,13 @@
                         <p>
                             <input type="submit" value="Generate" />
                         </p>
-					</fieldset>
-				</form>
-			</div>
-			<div class="clear" />
-		</div>
-		<footer>
-			<a href="https://github.com/PakkuDon">Obligatory GitHub link.</a>
-		</footer>
-	</body>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="clear" />
+        </div>
+        <footer>
+            <a href="https://github.com/PakkuDon">Obligatory GitHub link.</a>
+        </footer>
+    </body>
 </html>
