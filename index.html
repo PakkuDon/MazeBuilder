@@ -54,16 +54,16 @@
                 </canvas>
             </div>
             <div id="options">
-                <form onSubmit="generateMaze(); return false;">
+                <form onsubmit="generateMaze(); return false;">
                     <fieldset>
                         <legend>Build options</legend>
                         <p>
                             <label for="width">Width</label>
-                            <input type="number" required="required" min="1" max="25" id="width" />
+                            <input type="number"min="1" max="100" required="required" id="width" />
                         </p>
                         <p>
                             <label for="height">Height</label>
-                            <input type="number" required="required" min="1" max="25" id="height" />
+                            <input type="number"min="1" max="100" required="required" id="height" />
                         </p>
                         <p>
                             <label for="algorithm">Algorithm</label>
