@@ -2,6 +2,10 @@ function Cell(x, y) {
     this.x = x;
     this.y = y;
     this.neighbours = [];
+
+    this.toString = function() {
+        return x + "," + y;
+    };
 }
 
 function Edge(aX, aY, bX, bY) {
@@ -17,8 +21,12 @@ function Maze(width, height) {
     this.grid = [];
     this.edges = [];
     this.marker = {};
-    this.marker.x = 0;
-    this.marker.y = 0;
+    this.marker = {
+        prevX: 0,
+        prevY: 0,
+        currX: 0,
+        currY: 0
+    };
 
     // Populate contents of grid
     for (var x = 0; x < width; x++) {
@@ -29,8 +37,10 @@ function Maze(width, height) {
     }
 
     this.setMarker = function(x, y) {
-        this.marker.x = x;
-        this.marker.y = y;
+        this.marker.prevX = this.marker.currX;
+        this.marker.prevY = this.marker.currY;
+        this.marker.currX = x;
+        this.marker.currY = y;
     };
 
     this.draw = function(canvas) {
