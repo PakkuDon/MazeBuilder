@@ -6,7 +6,7 @@
         <script type="text/javascript" src="disjointset.js"></script>
         <script type="text/javascript" src="builder.js"></script>
         <script type="text/javascript" src="depthbuilder.js"></script>
-
+        <script type="text/javascript" src="kruskalbuilder.js"></script>
         <style>
             label {
                 width: 75px;
@@ -30,8 +30,10 @@
                 var builder = new Builder("view");
                 var width = document.getElementById("width").value;
                 var height = document.getElementById("height").value;
+                var algorithm = document.getElementById("algorithm").value;
+
                 // TODO: Validation
-                builder.setStrategy("rbt");
+                builder.setStrategy(algorithm);
                 builder.build(width, height);
             }
         </script>

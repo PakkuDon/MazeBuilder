@@ -1,6 +1,10 @@
 function Node(data) {
     this.data = data;
     this.parent = this;
+
+    this.toString = function() {
+        return this.data.toString();
+    };
 }
 
 function DisjointSet() {
@@ -8,13 +12,14 @@ function DisjointSet() {
 
     /**
      * find() - Returns the parent of node.
-     * Performs path compression.
      */
     this.find = function(node) {
-        if (node.parent != node) {
-            node.parent = find(node.parent);
+        if (node.parent == node) {
+            return node;
         }
-        return node.parent;
+        else {
+            return this.find(node.parent);
+        }
     };
 
     /**
@@ -28,29 +33,36 @@ function DisjointSet() {
      * makeSet() - Add set to disjoint forest consisting of single node.
      */
     this.makeSet = function(data) {
-        var n = new Node(data);
-        this.nodes[data.toString()] = n;
+        this.nodes[data.toString()] = new Node(data);
     };
 
     /**
      * merge() - Attempt to perform union of sets containing values a and b
      */
     this.merge = function(a, b) {
+        // If either a and b not found in disjoint forest, create new nodes
         var nodeA = this.getNode(a);
-        var nodeB = this.getNode(b);
+        if (nodeA === undefined) {
+            this.makeSet(a);
+            nodeA = this.getNode(a);
+        }
 
-        // TODO: If either a and b not found in disjoint forest, return false
+        var nodeB = this.getNode(b);
+        if (nodeB === undefined) {
+            this.makeSet(b);
+            nodeB = this.getNode(b);
+        }
 
         // If nodes containing a and b both share the same parent, return false
         var rootA = this.find(nodeA);
         var rootB = this.find(nodeB);
 
-        if (rootA == rootB) {
+        if (rootA === rootB) {
             return false;
         }
 
         // Else, join nodes
-        rootB.parent = rootA;
+        rootA.parent = rootB;
         return true;
     };
 }

@@ -1,7 +1,7 @@
 function Builder(canvasId) {
     this.strategies = {
-        "rbt" : new DepthBuilder(),
-        'kruskal' : null
+        "dfs" : new DepthBuilder(),
+        'kruskal' : new KruskalBuilder()
     };
     this.canvasId = canvasId;
     this.strategy = null;
@@ -35,8 +35,7 @@ function Builder(canvasId) {
 
             // Remove marker and clear interval when done
             if (self.strategy.done) {
-                maze.marker.x = -1;
-                maze.marker.y = -1;
+                maze.setMarker(-1, -1);
                 clearInterval(intervalID);
             }
         }, 25);
