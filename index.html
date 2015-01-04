@@ -7,24 +7,7 @@
         <script type="text/javascript" src="builder.js"></script>
         <script type="text/javascript" src="depthbuilder.js"></script>
         <script type="text/javascript" src="kruskalbuilder.js"></script>
-        <style>
-            label {
-                width: 75px;
-                display: inline-block;
-            }
-
-            #canvasPane {
-                border: 1px solid #000;
-                padding: 10px;
-                margin: 2px;
-            }
-
-            #view {
-                background-color: #000;
-            }
-
-
-        </style>
+        <link rel="stylesheet" href="style.css" />
         <script type="text/javascript">
             function generateMaze() {
                 var builder = new Builder("view");
@@ -39,44 +22,45 @@
         </script>
     </head>
     <body>
-        <header>
-            <h1>Maze Builder</h1>
-        </header>
-        <div id="body">
-            <div id="options">
-                <form onsubmit="generateMaze(); return false;">
-                    <fieldset>
-                        <legend>Build options</legend>
-                        <p>
-                            <label for="width">Width</label>
-                            <input type="number"min="2" max="100" required="required" id="width" />
-                        </p>
-                        <p>
-                            <label for="height">Height</label>
-                            <input type="number"min="2" max="100" required="required" id="height" />
-                        </p>
-                        <p>
-                            <label for="algorithm">Algorithm</label>
-                            <select id="algorithm">
-                                <option value="dfs">Depth-first Search</option>
-                                <option value="kruskal">Randomized Kruskal's</option>
-                            </select>
-                        </p>
-                        <p>
-                            <input type="submit" value="Generate" />
-                        </p>
-                    </fieldset>
-                </form>
+        <div id="container">
+            <header>
+                <h1>Maze Builder</h1>
+            </header>
+            <div id="body">
+                <div id="options">
+                    <form onsubmit="generateMaze(); return false;">
+                        <fieldset>
+                            <legend>Build options</legend>
+                            <p>
+                                <label for="width">Width</label>
+                                <input type="number"min="2" max="100" required="required" id="width" />
+                            </p>
+                            <p>
+                                <label for="height">Height</label>
+                                <input type="number"min="2" max="100" required="required" id="height" />
+                            </p>
+                            <p>
+                                <label for="algorithm">Algorithm</label>
+                                <select id="algorithm">
+                                    <option value="dfs">Depth-first Search</option>
+                                    <option value="kruskal">Randomized Kruskal's</option>
+                                </select>
+                            </p>
+                            <p>
+                                <input type="submit" value="Generate" />
+                            </p>
+                        </fieldset>
+                    </form>
+                </div>
+                <div id="canvasPane">
+                    <canvas id="view" width="400" height="400">
+                        Your browser does not support the canvas tag.
+                    </canvas>
+                </div>
             </div>
-            <div id="canvasPane">
-                <p>Output:</p>
-                <canvas id="view" width="400" height="400">
-                    Your browser does not support the canvas tag.
-                </canvas>
-            </div>
+            <footer>
+                <a href="https://github.com/PakkuDon/MazeBuilder">Obligatory GitHub link.</a>
+            </footer>
         </div>
-        <footer>
-            <a href="https://github.com/PakkuDon">Obligatory GitHub link.</a>
-        </footer>
     </body>
 </html>
