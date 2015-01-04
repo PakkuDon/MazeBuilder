@@ -20,6 +20,7 @@ function Maze(width, height) {
     this.height = height;
     this.grid = [];
     this.edges = [];
+
     this.marker = {};
     this.marker = {
         prevX: 0,
@@ -27,14 +28,6 @@ function Maze(width, height) {
         currX: 0,
         currY: 0
     };
-
-    // Populate contents of grid
-    for (var x = 0; x < width; x++) {
-        this.grid.push([]);
-        for (var y = 0; y < height; y++) {
-            this.grid[x].push(new Cell(x, y));
-        }
-    }
 
     this.setMarker = function(x, y) {
         this.marker.prevX = this.marker.currX;
@@ -63,4 +56,23 @@ function Maze(width, height) {
 
         // TODO: Draw marker
     }
+
+    this.initialize = function(width, height) {
+        this.width = width;
+        this.height = height;
+
+        // Clear existing grid contents
+        while (this.grid.length > 0) {
+            this.grid.pop();
+        }
+
+        // Create cells
+        for (var x = 0; x < width; x++) {
+            this.grid.push([]);
+            for (var y = 0; y < height; y++) {
+                this.grid[x].push(new Cell(x, y));
+            }
+        }
+    }
+    this.initialize(width, height);
 }

@@ -10,10 +10,17 @@ function Builder(canvasId) {
         this.strategy = this.strategies[strategy];
     };
 
-    this.build = function(width, height) {
+    this.build = function(maze, width, height) {
+        // If build operation currently being executed,
+        // clear previous interval
+        if (typeof this.intervalID == "undefined"
+            && !this.strategy.done) {
+            clearInterval(this.intervalID);
+        }
+
         // Initialise strategy, maze and canvas
         this.strategy.initialise(width, height);
-        var maze = new Maze(width, height);
+        maze.initialize(width, height);
         var canvas = document.getElementById(canvasId);
         var context = canvas.getContext("2d");
 
@@ -27,7 +34,7 @@ function Builder(canvasId) {
         context.strokeStyle = "#FFF";
         context.beginPath();
 
-        var intervalID = setInterval(function() {
+        this.intervalID = setInterval(function() {
             self.strategy.build(maze);
 
             // Draw new edge
@@ -36,7 +43,7 @@ function Builder(canvasId) {
             // Remove marker and clear interval when done
             if (self.strategy.done) {
                 maze.setMarker(-1, -1);
-                clearInterval(intervalID);
+                clearInterval(self.intervalID);
             }
         }, 25);
     };

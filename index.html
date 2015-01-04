@@ -9,15 +9,17 @@
         <script type="text/javascript" src="kruskalbuilder.js"></script>
         <link rel="stylesheet" href="style.css" />
         <script type="text/javascript">
+            var maze = new Maze(0, 0);
+            var builder = new Builder("view");
+
             function generateMaze() {
-                var builder = new Builder("view");
                 var width = document.getElementById("width").value;
                 var height = document.getElementById("height").value;
                 var algorithm = document.getElementById("algorithm").value;
 
                 // TODO: Validation
                 builder.setStrategy(algorithm);
-                builder.build(width, height);
+                builder.build(maze, width, height);
             }
         </script>
     </head>
