@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>Maze Builder</title>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script type="text/javascript" src="maze.js"></script>
         <script type="text/javascript" src="disjointset.js"></script>
         <script type="text/javascript" src="builder.js"></script>
@@ -15,7 +16,7 @@
             function generateMaze() {
                 var width = document.getElementById("width").value;
                 var height = document.getElementById("height").value;
-                var algorithm = document.getElementById("algorithm").value;
+                var algorithm = document.getElementById("build_algorithms").value;
 
                 // TODO: Validation
                 builder.setStrategy(algorithm);
@@ -42,8 +43,8 @@
                                 <input type="number"min="2" max="100" required="required" id="height" />
                             </p>
                             <p>
-                                <label for="algorithm">Algorithm</label>
-                                <select id="algorithm">
+                                <label for="build_algorithms">Algorithm</label>
+                                <select id="build_algorithms">
                                     <option value="dfs">Depth-first Search</option>
                                     <option value="kruskal">Randomized Kruskal's</option>
                                 </select>

@@ -97,7 +97,7 @@ function DepthBuilder () {
             // link cells, push cell onto stack and update visited stats
             if (adjacentCells.length > 0) {
                 var next = adjacentCells[Math.floor(Math.random() * adjacentCells.length)];
-                maze.edges.push(new Edge(this.current.x, this.current.y, next.x, next.y));
+                maze.addEdge(new Edge(this.current.x, this.current.y, next.x, next.y));
                 this.stack.push(next);
                 this.current = next;
 

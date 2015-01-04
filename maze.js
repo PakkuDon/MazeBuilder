@@ -29,34 +29,7 @@ function Maze(width, height) {
         currY: 0
     };
 
-    this.setMarker = function(x, y) {
-        this.marker.prevX = this.marker.currX;
-        this.marker.prevY = this.marker.currY;
-        this.marker.currX = x;
-        this.marker.currY = y;
-    };
-
-    this.draw = function(canvas) {
-        var cellWidth = canvas.width / this.width;
-        var cellHeight = canvas.height / this.height;
-        var context = canvas.getContext("2d");
-        var xOffset = cellWidth / 2;
-        var yOffset = cellHeight / 2;
-
-        // Draw new edge
-        context.strokeStyle = "#FFF";
-        var edge = this.edges[this.edges.length - 1];
-        var aX = edge.aX * cellWidth + xOffset;
-        var aY = edge.aY * cellHeight + yOffset;
-        var bX = edge.bX * cellWidth + xOffset;
-        var bY = edge.bY * cellHeight + yOffset;
-        context.moveTo(aX, aY);
-        context.lineTo(bX, bY);
-        context.stroke();
-
-        // TODO: Draw marker
-    }
-
+    // Initialise grid of cells and other fields
     this.initialize = function(width, height) {
         this.width = width;
         this.height = height;
@@ -73,6 +46,30 @@ function Maze(width, height) {
                 this.grid[x].push(new Cell(x, y));
             }
         }
+
+        // Clear existing edges
+        while (this.edges.length > 0) {
+            this.edges.pop();
+        }
     }
+
+    // Add edge and link end-points together
+    this.addEdge = function(edge) {
+        this.edges.push(edge);
+        var firstCell = this.grid[edge.aX][edge.aY];
+        var secondCell = this.grid[edge.bX][edge.bY];
+
+        firstCell.neighbours.push(secondCell);
+        secondCell.neighbours.push(firstCell);
+    };
+
+    // Set location of marker object
+    this.setMarker = function(x, y) {
+        this.marker.prevX = this.marker.currX;
+        this.marker.prevY = this.marker.currY;
+        this.marker.currX = x;
+        this.marker.currY = y;
+    };
+
     this.initialize(width, height);
 }

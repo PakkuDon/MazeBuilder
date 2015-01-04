@@ -2,9 +2,18 @@ function KruskalBuilder() {
     this.done = false;
     this.possibleEdges = [];
     this.currentPos = 0;
-    this.set = new DisjointSet();
+    this.set = null;
 
     this.initialise = function(width, height) {
+        this.set = new DisjointSet();
+        this.currentPos = 0;
+        this.done = false;
+
+        // Clear existing possible edges
+        while (this.possibleEdges.length > 0) {
+            this.possibleEdges.pop();
+        }
+
         // Generate list of possible edges
         for (var x = 1; x < width; x++) {
             for (var y = 1; y < height; y++) {
@@ -49,7 +58,7 @@ function KruskalBuilder() {
 
             // If cells not in same set, add edge to path
             if (this.set.merge(cellA, cellB) === true) {
-                maze.edges.push(edge);
+                maze.addEdge(edge);
             }
 
             // Update current index
