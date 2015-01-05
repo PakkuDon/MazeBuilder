@@ -1,6 +1,4 @@
 function DepthBuilder () {
-    this.width = 0;
-    this.height = 0;
     this.visited = [[]];
     this.done = false;
     this.current = {};
@@ -9,8 +7,6 @@ function DepthBuilder () {
 
     // TODO: Pass in start and end points
     this.initialise = function(width, height) {
-        this.width = width;
-        this.height = height;
         this.done = false;
 
         // Clear visited flags array
@@ -86,7 +82,7 @@ function DepthBuilder () {
 
     this.build = function(maze) {
         // If all cells visited, set flag and stop processing grid
-        if (this.visitedCount == this.width * this.height) {
+        if (this.visitedCount == maze.width * maze.height) {
             this.done = true;
         }
         else {

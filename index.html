@@ -8,10 +8,31 @@
         <script type="text/javascript" src="builder.js"></script>
         <script type="text/javascript" src="depthbuilder.js"></script>
         <script type="text/javascript" src="kruskalbuilder.js"></script>
+
+        <script type="text/javascript" src="solver.js"></script>
+        <script type="text/javascript" src="depthsolver.js"></script>
+
         <link rel="stylesheet" href="style.css" />
         <script type="text/javascript">
             var maze = new Maze(0, 0);
             var builder = new Builder("view");
+            var solver = new Solver("view");
+
+            $(document).ready(function() {
+                var build_algorithms = $("#build_algorithms");
+                for (var strategy in builder.strategies) {
+                    build_algorithms.append(
+                        $("<option />").val(strategy)
+                        .text(builder.strategies[strategy].name));
+                }
+
+                var solve_algorithms = $("#solve_algorithms");
+                for (var strategy in solver.strategies) {
+                    solve_algorithms.append(
+                        $("<option />").val(strategy)
+                        .text(solver.strategies[strategy].name));
+                }
+            });
 
             function generateMaze() {
                 var width = document.getElementById("width").value;
@@ -45,13 +66,22 @@
                             <p>
                                 <label for="build_algorithms">Algorithm</label>
                                 <select id="build_algorithms">
-                                    <option value="dfs">Depth-first Search</option>
-                                    <option value="kruskal">Randomized Kruskal's</option>
                                 </select>
                             </p>
                             <p>
                                 <input type="submit" value="Generate" />
                             </p>
+                        </fieldset>
+                    </form>
+                    <form>
+                        <fieldset>
+                            <legend>Solve options</legend>
+                            <p>
+                                <label for="solve_algorithms">Algorithm</label>
+                                <select id="solve_algorithms">
+                                </select>
+                            </p>
+                            <input type="submit" value="Solve maze" />
                         </fieldset>
                     </form>
                 </div>
