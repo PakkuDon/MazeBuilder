@@ -19,7 +19,7 @@ function Builder(canvasId) {
     this.build = function(maze, width, height) {
         // If build operation currently being executed,
         // clear previous interval
-        if (typeof this.intervalID == "undefined"
+        if (typeof this.intervalID != "undefined"
             && !this.strategy.done) {
             clearInterval(this.intervalID);
         }

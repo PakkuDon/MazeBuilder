@@ -5,7 +5,6 @@ function DepthBuilder () {
     this.stack = [];
     this.visitedCount = 0;
 
-    // TODO: Pass in start and end points
     this.initialise = function(width, height) {
         this.done = false;
 
