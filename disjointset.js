@@ -65,4 +65,21 @@ function DisjointSet() {
         rootA.parent = rootB;
         return true;
     };
+
+    /**
+     * getAncestors() - Returns a list of nodes that are an ancestor to the node
+     * containing data.
+     */
+    this.getAncestors = function(data) {
+        var node = this.getNode(data);
+        var ancestors = [];
+
+        if (node !== undefined) {
+            while (node.parent != node) {
+                ancestors.push(node);
+                node = node.parent;
+            }
+        }
+        return ancestors;
+    }
 }
