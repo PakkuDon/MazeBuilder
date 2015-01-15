@@ -2,8 +2,6 @@ function DepthSolver() {
     this.endPoint = null;
     this.visitFlags = [[]];
     this.done = false;
-    this.previous = null
-    this.current = null;
     this.stack = [];
     this.visitedEdges = [];
     this.set = null;
@@ -11,7 +9,6 @@ function DepthSolver() {
 
     this.initialise = function(maze, startPoint, endPoint) {
         this.done = false;
-        this.previous = null;
         this.endPoint = maze.grid[endPoint.x][endPoint.y];
         this.set = new DisjointSet();
 
@@ -44,35 +41,48 @@ function DepthSolver() {
         }
 
         // Add starting cell to stack
-        this.stack.push(maze.grid[startPoint.x][startPoint.y]);
+        this.stack.push(new Edge(null, null, startPoint.x, startPoint.y));
     }
 
     this.solve = function(maze) {
-        // If end point reached, set flag and generate path from start to end
-        if (this.current == this.endPoint) {
-            this.done = true;
-            this.solution = this.set.getAncestors(this.current);
+        var currentEdge = this.stack.pop();
+        var previous = null;
+        if (currentEdge.aX != null) {
+            previous = maze.grid[currentEdge.aX][currentEdge.aY];
         }
-        this.previous = this.current;
-        this.current = this.stack.pop();
+        var current = maze.grid[currentEdge.bX][currentEdge.bY];
+
+        // If end point reached, set flag and generate path from start to end
+        if (current == this.endPoint) {
+            this.done = true;
+            this.set.merge(previous, current);
+            var path = this.set.getAncestors(current);
+
+            // TODO: Come up with better variable names here
+            for (var i = 1; i < path.length; i++) {
+                var cellA = path[i - 1];
+                var cellB = path[i];
+
+                var edge = new Edge(cellA.x, cellA.y, cellB.x, cellB.y);
+                this.solution.push(edge);
+            }
+        }
 
         // Get unvisited neighbours of current cell
-        for (var i = 0; i < this.current.neighbours.length; i++) {
-            var neighbour = this.current.neighbours[i];
+        for (var i = 0; i < current.neighbours.length; i++) {
+            var neighbour = current.neighbours[i];
             if (this.visitFlags[neighbour.x][neighbour.y] === false) {
-                this.stack.push(neighbour);
+                this.stack.push(new Edge(current.x, current.y, neighbour.x, neighbour.y));
             }
         }
 
         // Store edge between current and previous cell
-        if (this.previous !== null) {
-            this.visitedEdges.push(new Edge(
-                this.previous.x, this.previous.y,
-                this.current.x, this.current.y));
-            this.set.merge(this.previous, this.current);
+        if (previous !== null) {
+            this.visitedEdges.push(currentEdge);
+            this.set.merge(previous, current);
         }
 
         // Mark current cell as visited
-        this.visitFlags[this.current.x][this.current.y] = true;
+        this.visitFlags[current.x][current.y] = true;
     }
 }

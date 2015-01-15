@@ -62,7 +62,7 @@ function DisjointSet() {
         }
 
         // Else, join nodes
-        rootA.parent = rootB;
+        nodeB.parent = nodeA;
         return true;
     };
 
@@ -75,11 +75,13 @@ function DisjointSet() {
         var ancestors = [];
 
         if (node !== undefined) {
-            while (node.parent != node) {
-                ancestors.push(node);
+            do {
+                ancestors.push(node.data);
                 node = node.parent;
-            }
+            } while (node.parent != node);
+            ancestors.push(node.data);
         }
+
         return ancestors;
     }
 }

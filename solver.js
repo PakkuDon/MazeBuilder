@@ -64,8 +64,22 @@ function Solver(canvasId) {
                 maze.setMarker(-1, -1);
                 clearInterval(self.intervalID);
 
-                context.strokeStyle = "#0F0";
+                context.strokeStyle = "#09F";
                 context.beginPath();
+
+                var solution = self.strategy.solution;
+
+                for (var i = 0; i < solution.length; i++) {
+                    var edge = solution[i];
+
+                    var aX = edge.aX * cellWidth + xOffset;
+                    var aY = edge.aY * cellHeight + yOffset;
+                    var bX = edge.bX * cellWidth + xOffset;
+                    var bY = edge.bY * cellHeight + yOffset;
+                    context.moveTo(aX, aY);
+                    context.lineTo(bX, bY);
+                    context.stroke();
+                }
             }
         }, 25);
     }
