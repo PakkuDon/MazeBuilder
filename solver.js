@@ -3,6 +3,10 @@ function Solver(canvasId) {
         "dfs" : {
             "name" : "Depth-first Search",
             "algorithm" : new DepthSolver()
+        },
+        "bfs" : {
+            "name" : "Breadth-first Search",
+            "algorithm" : new BreadthSolver()
         }
     };
     this.canvasId = canvasId;
