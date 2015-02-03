@@ -10,7 +10,7 @@ function DepthSolver() {
     this.initialise = function(maze, startPoint, endPoint) {
         this.done = false;
         this.endPoint = maze.grid[endPoint.x][endPoint.y];
-        this.set = new DisjointSet();
+        this.set = new Tree();
 
         // Clear existing visit flags
         while (this.visitFlags.length > 0) {
