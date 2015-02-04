@@ -2,10 +2,10 @@ function KruskalBuilder() {
     this.done = false;
     this.possibleEdges = [];
     this.currentPos = 0;
-    this.set = null;
+    this.set = new DisjointSet();
 
     this.initialise = function(width, height) {
-        this.set = new DisjointSet();
+        this.set.clear();
         this.currentPos = 0;
         this.done = false;
 

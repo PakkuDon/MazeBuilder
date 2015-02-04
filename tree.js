@@ -84,4 +84,13 @@ function Tree() {
 
         return ancestors;
     }
+
+    /**
+     * clear() - Removes all nodes currently stored in tree.
+     */
+    this.clear = function() {
+        for (var key in this.nodes) {
+            delete this.nodes[key];
+        }
+    }
 }

@@ -4,13 +4,13 @@ function DepthSolver() {
     this.done = false;
     this.stack = [];
     this.visitedEdges = [];
-    this.set = null;
+    this.set = new Tree();
     this.solution = [];
 
     this.initialise = function(maze, startPoint, endPoint) {
         this.done = false;
         this.endPoint = maze.grid[endPoint.x][endPoint.y];
-        this.set = new Tree();
+        this.set.clear();
 
         // Clear existing visit flags
         while (this.visitFlags.length > 0) {
