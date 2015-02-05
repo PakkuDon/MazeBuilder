@@ -51,6 +51,13 @@
                 solver.setStrategy(algorithm);
                 solver.solve(maze);
             }
+
+            function clearCanvas() {
+                var canvas = document.getElementById("view");
+                var context = canvas.getContext("2d");
+                context.fillStyle = "#000000";
+                context.fillRect(0, 0, canvas.width, canvas.height);
+            }
         </script>
     </head>
     <body>
@@ -97,6 +104,11 @@
                     <canvas id="view" width="400" height="400">
                         Your browser does not support the canvas tag.
                     </canvas>
+                    <p>
+                        <button onclick="clearCanvas()">
+                            Clear canvas
+                        </button>
+                    </p>
                 </div>
             </div>
             <footer>
