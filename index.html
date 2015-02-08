@@ -50,8 +50,13 @@
 
             function solveMaze() {
                 var algorithm = document.getElementById("solve_algorithms").value;
+                var startX = document.getElementById("startX").value;
+                var startY = document.getElementById("startY").value;
+                var endX = document.getElementById("endX").value;
+                var endY = document.getElementById("endY").value;
+
                 solver.setStrategy(algorithm);
-                solver.solve(maze);
+                solver.solve(maze, startX, startY, endX, endY);
             }
 
             function clearCanvas() {
@@ -72,27 +77,46 @@
                     <form onsubmit="generateMaze(); return false;">
                         <fieldset>
                             <legend>Build options</legend>
-                            <p>
+                            <div>
                                 <label for="width">Width</label>
-                                <input type="number"min="2" max="100" required="required" id="width" />
-                            </p>
-                            <p>
+                                <input type="number" min="2" max="100" required="required" id="width" />
+                            </div>
+                            <div>
                                 <label for="height">Height</label>
-                                <input type="number"min="2" max="100" required="required" id="height" />
-                            </p>
-                            <p>
+                                <input type="number" min="2" max="100" required="required" id="height" />
+                            </div>
+                            <div>
                                 <label for="build_algorithms">Algorithm</label>
                                 <select id="build_algorithms">
                                 </select>
-                            </p>
-                            <p>
+                            </div>
+                            <div>
                                 <input type="submit" value="Generate" />
-                            </p>
+                            </div>
                         </fieldset>
                     </form>
                     <form onsubmit="solveMaze(); return false;">
                         <fieldset>
                             <legend>Solve options</legend>
+                            Note: Points are zero-indexed.
+                            <div>Start point</div>
+                            <div>
+                                <label for="startX">x</label>
+                                <input type="number" min="0" max="100" required="required" id="startX" />
+                            </div>
+                            <div>
+                                <label for="startY">y</label>
+                                <input type="number" min="0" max="100" required="required" id="startY" />
+                            </div>
+                            <div>End point</div>
+                            <div>
+                                <label>x</label>
+                                <input type="number" min="0" max="100" required="required" id="endX" />
+                            </div>
+                            <div>
+                                <label>y</label>
+                                <input type="number" min="0" max="100" required="required" id="endY" />
+                            </div>
                             <p>
                                 <label for="solve_algorithms">Algorithm</label>
                                 <select id="solve_algorithms">

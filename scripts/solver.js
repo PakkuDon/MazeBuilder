@@ -16,7 +16,7 @@ function Solver(canvasId) {
         this.strategy = this.strategies[strategy].algorithm;
     };
 
-    this.solve = function(maze) {
+    this.solve = function(maze, startX, startY, endX, endY) {
         // If solve operation currently being executed,
         // clear previous interval
         if (typeof this.intervalID != "undefined"
@@ -24,9 +24,9 @@ function Solver(canvasId) {
             clearInterval(this.intervalID);
         }
 
-        // TODO: Define these elsewhere
-        var startPoint = { x: 0, y: 0 };
-        var endPoint = { x: maze.width - 1, y: maze.height - 1 };
+        // TODO: Validation
+        var startPoint = { x: startX, y: startY };
+        var endPoint = { x: endX, y: endY };
 
         // Initialise strategy, maze and canvas
         this.strategy.initialise(maze, startPoint, endPoint);
