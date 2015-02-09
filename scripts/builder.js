@@ -7,6 +7,10 @@ function Builder(canvasId) {
         'kruskal' : {
             "name" : "Randomized Kruskal's",
             "algorithm" : new KruskalBuilder()
+        },
+        'prim' : {
+            "name" : "Randomized Prim's",
+            "algorithm" : new PrimBuilder()
         }
     };
     this.canvasId = canvasId;
