@@ -1,4 +1,4 @@
-function Builder(canvasId) {
+function Builder(graphics) {
     this.strategies = {
         "dfs" : {
             "name" : "Depth-first Search",
@@ -13,7 +13,7 @@ function Builder(canvasId) {
             "algorithm" : new PrimBuilder()
         }
     };
-    this.canvasId = canvasId;
+    this.graphics = graphics;
     this.strategy = null;
 
     this.setStrategy = function(strategy) {
@@ -31,19 +31,6 @@ function Builder(canvasId) {
         // Initialise strategy, maze and canvas
         this.strategy.initialise(width, height);
         maze.initialize(width, height);
-        var canvas = document.getElementById(canvasId);
-        var context = canvas.getContext("2d");
-
-        // Erase canvas contents
-        context.fillStyle = "#000";
-        context.fillRect(0, 0, canvas.width, canvas.height);
-        context.strokeStyle = "#FFF";
-        context.beginPath();
-
-        var cellWidth = canvas.width / maze.width;
-        var cellHeight = canvas.height / maze.height;
-        var xOffset = cellWidth / 2;
-        var yOffset = cellHeight / 2;
 
         // Because lol closures
         var self = this;
@@ -53,14 +40,7 @@ function Builder(canvasId) {
             self.strategy.build(maze);
 
             // Draw new edge
-            var edge = maze.edges[maze.edges.length - 1];
-            var aX = edge.aX * cellWidth + xOffset;
-            var aY = edge.aY * cellHeight + yOffset;
-            var bX = edge.bX * cellWidth + xOffset;
-            var bY = edge.bY * cellHeight + yOffset;
-            context.moveTo(aX, aY);
-            context.lineTo(bX, bY);
-            context.stroke();
+            self.graphics.drawEdge(maze.edges[maze.edges.length - 1], "#FFF");
 
             // TODO: Draw marker
 

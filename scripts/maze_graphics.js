@@ -4,7 +4,8 @@
  */
 function MazeGraphics(canvasId) {
     this.canvas = document.getElementById(canvasId);
-    this.context = canvas.getContext("2d");
+    var initialCanvas = this.canvas;
+    this.context = initialCanvas.getContext("2d");
 
     this.cellWidth = 0;
     this.cellHeight = 0;
@@ -16,10 +17,10 @@ function MazeGraphics(canvasId) {
      * to draw maze walls based on given width and height values.
      */
     this.initialise = function(width, height) {
-        this.cellWidth = canvas.width / width;
-        this.cellHeight = canvas.height / height;
-        this.xOffset = cellWidth / 2;
-        this.yOffset = cellHeight / 2;
+        this.cellWidth = this.canvas.width / width;
+        this.cellHeight = this.canvas.height / height;
+        this.xOffset = this.cellWidth / 2;
+        this.yOffset = this.cellHeight / 2;
     }
 
     /**

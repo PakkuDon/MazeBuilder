@@ -20,11 +20,14 @@
 
         <link rel="stylesheet" href="style.css" />
         <script type="text/javascript">
-            var maze = new Maze(0, 0);
-            var builder = new Builder("view");
-            var solver = new Solver("view");
-
             $(document).ready(function() {
+                // Initialise objects
+                var maze = new Maze(0, 0);
+                var maze_graphics = new MazeGraphics("view");
+                var builder = new Builder(maze_graphics);
+                var solver = new Solver("view");
+
+                // Populate drop-downs with algorithms in builder
                 var build_algorithms = $("#build_algorithms");
                 for (var strategy in builder.strategies) {
                     build_algorithms.append(
@@ -32,18 +35,31 @@
                         .text(builder.strategies[strategy].name));
                 }
 
+                // Populate drop-downs with algorithms in solver
                 var solve_algorithms = $("#solve_algorithms");
                 for (var strategy in solver.strategies) {
                     solve_algorithms.append(
                         $("<option />").val(strategy)
                         .text(solver.strategies[strategy].name));
                 }
+                // Register event handler on build-options form
+                $("#build_form").submit(function() {
+                    var width = document.getElementById("width").value;
+                    var height = document.getElementById("height").value;
+                    var algorithm = document.getElementById("build_algorithms").value;
+                    maze_graphics.initialise(width, height);
+
+                    // TODO: Validation
+                    builder.setStrategy(algorithm);
+                    builder.build(maze, width, height);
+                });
             });
 
             function generateMaze() {
                 var width = document.getElementById("width").value;
                 var height = document.getElementById("height").value;
                 var algorithm = document.getElementById("build_algorithms").value;
+                maze_graphics.initialise(width, height);
 
                 // TODO: Validation
                 builder.setStrategy(algorithm);
@@ -76,7 +92,7 @@
             </header>
             <div id="body">
                 <div id="options">
-                    <form onsubmit="generateMaze(); return false;">
+                    <form id="build_form" onsubmit="return false;">
                         <fieldset>
                             <legend>Build options</legend>
                             <div>
