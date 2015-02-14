@@ -32,7 +32,7 @@ function Solver(graphics) {
         this.strategy.initialise(maze, startPoint, endPoint);
 
         // Initialise for graphics
-        this.graphics.initialise(width, height);
+        this.graphics.initialise(maze.width, maze.height);
 
         var self = this;
 
