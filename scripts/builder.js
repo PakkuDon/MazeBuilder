@@ -32,6 +32,10 @@ function Builder(graphics) {
         this.strategy.initialise(width, height);
         maze.initialize(width, height);
 
+        // Clear canvas and initialise values for graphics
+        this.graphics.clear();
+        this.graphics.initialise(width, height);
+
         // Because lol closures
         var self = this;
 

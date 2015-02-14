@@ -25,7 +25,7 @@
                 var maze = new Maze(0, 0);
                 var maze_graphics = new MazeGraphics("view");
                 var builder = new Builder(maze_graphics);
-                var solver = new Solver("view");
+                var solver = new Solver(maze_graphics);
 
                 // Populate drop-downs with algorithms in builder
                 var build_algorithms = $("#build_algorithms");
@@ -42,40 +42,30 @@
                         $("<option />").val(strategy)
                         .text(solver.strategies[strategy].name));
                 }
+
                 // Register event handler on build-options form
                 $("#build_form").submit(function() {
                     var width = document.getElementById("width").value;
                     var height = document.getElementById("height").value;
                     var algorithm = document.getElementById("build_algorithms").value;
-                    maze_graphics.initialise(width, height);
 
                     // TODO: Validation
                     builder.setStrategy(algorithm);
                     builder.build(maze, width, height);
                 });
+
+                // Register event handler on solve-options form
+                $("#solve_form").submit(function() {
+                    var algorithm = document.getElementById("solve_algorithms").value;
+                    var startX = document.getElementById("startX").value;
+                    var startY = document.getElementById("startY").value;
+                    var endX = document.getElementById("endX").value;
+                    var endY = document.getElementById("endY").value;
+
+                    solver.setStrategy(algorithm);
+                    solver.solve(maze, startX, startY, endX, endY);
+                });
             });
-
-            function generateMaze() {
-                var width = document.getElementById("width").value;
-                var height = document.getElementById("height").value;
-                var algorithm = document.getElementById("build_algorithms").value;
-                maze_graphics.initialise(width, height);
-
-                // TODO: Validation
-                builder.setStrategy(algorithm);
-                builder.build(maze, width, height);
-            }
-
-            function solveMaze() {
-                var algorithm = document.getElementById("solve_algorithms").value;
-                var startX = document.getElementById("startX").value;
-                var startY = document.getElementById("startY").value;
-                var endX = document.getElementById("endX").value;
-                var endY = document.getElementById("endY").value;
-
-                solver.setStrategy(algorithm);
-                solver.solve(maze, startX, startY, endX, endY);
-            }
 
             function clearCanvas() {
                 var canvas = document.getElementById("view");
@@ -113,7 +103,7 @@
                             </div>
                         </fieldset>
                     </form>
-                    <form onsubmit="solveMaze(); return false;">
+                    <form id="solve_form" onsubmit="return false;">
                         <fieldset>
                             <legend>Solve options</legend>
                             Note: Points are zero-indexed.

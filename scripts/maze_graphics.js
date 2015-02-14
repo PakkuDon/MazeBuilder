@@ -55,7 +55,7 @@ function MazeGraphics(canvasId) {
      */
     this.drawSolution = function(edgeList) {
         for (var i = 0; i < edgeList.length; i++) {
-            this.drawEdges(edgeList[i], "#369");
+            this.drawEdge(edgeList[i], "#369");
         }
     }
 
