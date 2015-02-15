@@ -4,8 +4,8 @@
  */
 function MazeGraphics(canvasId) {
     this.canvas = document.getElementById(canvasId);
-    var initialCanvas = this.canvas;
-    this.context = initialCanvas.getContext("2d");
+    this.context = this.canvas.getContext("2d");
+    this.context.globalAlpha = 1.0;
 
     this.cellWidth = 0;
     this.cellHeight = 0;
@@ -55,7 +55,7 @@ function MazeGraphics(canvasId) {
      */
     this.drawSolution = function(edgeList) {
         for (var i = 0; i < edgeList.length; i++) {
-            this.drawEdge(edgeList[i], "#369");
+            this.drawEdge(edgeList[i], "#09F");
         }
     }
 

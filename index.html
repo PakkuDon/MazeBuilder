@@ -65,14 +65,20 @@
                     solver.setStrategy(algorithm);
                     solver.solve(maze, startX, startY, endX, endY);
                 });
-            });
 
-            function clearCanvas() {
-                var canvas = document.getElementById("view");
-                var context = canvas.getContext("2d");
-                context.fillStyle = "#000000";
-                context.fillRect(0, 0, canvas.width, canvas.height);
-            }
+                // Register event handler on 'clear canvas' button
+                $("#clearCanvas").click(function() {
+                    // TODO: Stop build/solve operations
+                    maze_graphics.clear();
+                });
+
+                // Register event handler on 'clear solution' button
+                $("#clearSolution").click(function() {
+                    maze_graphics.clear();
+                    maze_graphics.drawMaze(maze);
+                });
+
+            });
         </script>
     </head>
     <body>
@@ -118,11 +124,11 @@
                             </div>
                             <div>End point</div>
                             <div>
-                                <label>x</label>
+                                <label for="endX">x</label>
                                 <input type="number" min="0" max="100" required="required" id="endX" />
                             </div>
                             <div>
-                                <label>y</label>
+                                <label for="endY">y</label>
                                 <input type="number" min="0" max="100" required="required" id="endY" />
                             </div>
                             <p>
@@ -139,8 +145,11 @@
                         Your browser does not support the canvas tag.
                     </canvas>
                     <p>
-                        <button onclick="clearCanvas()">
+                        <button id="clearCanvas">
                             Clear canvas
+                        </button>
+                        <button id="clearSolution">
+                            Clear solution
                         </button>
                     </p>
                 </div>
