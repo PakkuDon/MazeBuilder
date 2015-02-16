@@ -5,7 +5,7 @@
 function MazeGraphics(canvasId) {
     this.canvas = document.getElementById(canvasId);
     this.context = this.canvas.getContext("2d");
-    this.context.globalAlpha = 1.0;
+    this.strokeCount = 7;
 
     this.cellWidth = 0;
     this.cellHeight = 0;
@@ -33,12 +33,19 @@ function MazeGraphics(canvasId) {
         var bX = edge.bX * this.cellWidth + this.xOffset;
         var bY = edge.bY * this.cellHeight + this.yOffset;
 
-        // Draw line
+        // Set colour and end-points of line
         this.context.strokeStyle = color;
         this.context.beginPath();
         this.context.moveTo(aX, aY);
         this.context.lineTo(bX, bY);
         this.context.stroke();
+
+        // Draw line
+        // Performed in a loop since the lines come out transparent
+        // on the initial stroke for some reason
+        for (var i = 0; i < this.strokeCount; i++) {
+            this.context.stroke();
+        }
     }
 
     /**
