@@ -44,7 +44,7 @@ function Builder(graphics) {
             self.strategy.build(maze);
 
             // Draw new edge
-            self.graphics.drawEdge(maze.edges[maze.edges.length - 1], "#FFF");
+            self.graphics.drawMazeEdge(maze.edges[maze.edges.length - 1]);
 
             // TODO: Draw marker
 

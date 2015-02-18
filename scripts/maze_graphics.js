@@ -7,10 +7,18 @@ function MazeGraphics(canvasId) {
     this.context = this.canvas.getContext("2d");
     this.strokeCount = 7;
 
+    // Values used to calculate x, y coordinates of edges
+    // when drawing the maze
     this.cellWidth = 0;
     this.cellHeight = 0;
     this.xOffset = 0;
     this.yOffset = 0;
+
+    // Colours used when drawing on canvas
+    this.backgroundColour = "#000";
+    this.edgeColour = "#FFF";
+    this.visitedColour = "#F00";
+    this.solutionColour = "#09F";
 
     /**
      * initialise() - Calculates dimensions and offsets required
@@ -49,11 +57,25 @@ function MazeGraphics(canvasId) {
     }
 
     /**
+     * drawMazeEdge() - Draws a line representing an unmarked edge.
+     */
+    this.drawMazeEdge = function(edge) {
+        this.drawEdge(edge, this.edgeColour);
+    }
+
+    /**
+     * drawVisitedEdge() - Draws a line representing a visited edge.
+     */
+    this.drawVisitedEdge = function(edge) {
+        this.drawEdge(edge, this.visitedColour);
+    }
+
+    /**
      * drawMaze() - Draws all maze edges.
      */
     this.drawMaze = function(maze) {
         for (var i = 0; i < maze.edges.length; i++) {
-            this.drawEdge(maze.edges[i], "#FFF");
+            this.drawEdge(maze.edges[i], this.edgeColour);
         }
     }
 
@@ -62,7 +84,7 @@ function MazeGraphics(canvasId) {
      */
     this.drawSolution = function(edgeList) {
         for (var i = 0; i < edgeList.length; i++) {
-            this.drawEdge(edgeList[i], "#09F");
+            this.drawEdge(edgeList[i], this.solutionColour);
         }
     }
 
@@ -70,7 +92,7 @@ function MazeGraphics(canvasId) {
      * clear() - Erases canvas contents.
      */
     this.clear = function() {
-        this.context.fillStyle = "#000";
+        this.context.fillStyle = this.backgroundColour;
         this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
     }
 }

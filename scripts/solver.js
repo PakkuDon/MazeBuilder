@@ -43,7 +43,7 @@ function Solver(graphics) {
             // Draw visited edge
             var edge = self.strategy.visitedEdges[self.strategy.visitedEdges.length - 1];
             if (typeof edge !== "undefined") {
-                self.graphics.drawEdge(edge, "#F00");
+                self.graphics.drawVisitedEdge(edge);
             }
 
             // TODO: Draw marker
