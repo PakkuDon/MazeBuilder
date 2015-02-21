@@ -26,7 +26,7 @@ function PriorityQueue() {
         var node = new QueueNode(data, priority);
         this.queue.push(node);
 
-        this.heapUp(this.queue.length);
+        this.heapUp(this.queue.length - 1);
     }
 
     /**
@@ -49,8 +49,8 @@ function PriorityQueue() {
         if (parentIndex > 0) {
             var parentNode = this.queue[parentIndex];
             if (parentNode.priority > this.queue[index].priority) {
-                swap(index, parentIndex);
-                heapUp(parentIndex);
+                this.swap(index, parentIndex);
+                this.heapUp(parentIndex);
             }
         }
     }
@@ -65,18 +65,19 @@ function PriorityQueue() {
 
             var nextIndex = index;
 
-            if (leftIndex <= this.queue.size
+            if (leftIndex < this.queue.length
                 && this.queue[leftIndex].priority
                 < this.queue[nextIndex].priority)
             {
                 nextIndex = leftIndex;
             }
-            if (rightIndex <= this.queue.size
+            if (rightIndex < this.queue.length
                 && this.queue[rightIndex].priority
                 < this.queue[nextIndex].priority)
             {
                 nextIndex = rightIndex;
             }
+
 
             if (nextIndex != index) {
                 this.swap(index, nextIndex);
