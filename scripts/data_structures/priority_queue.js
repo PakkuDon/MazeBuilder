@@ -34,10 +34,10 @@ function PriorityQueue() {
      * Binary heap is sorted to maintain min-heap order.
      */
     this.poll = function() {
-        var node = this.queue.splice(1, 1);
+        var nodes = this.queue.splice(1, 1);
         this.heapDown(1);
 
-        return node.data;
+        return nodes[0].data;
     }
 
     /**
@@ -99,5 +99,14 @@ function PriorityQueue() {
 
         this.queue[indexA] = nodeB;
         this.queue[indexB] = nodeA;
+    }
+
+    /**
+     * clear() - Removes all elements from queue.
+     */
+    this.clear = function() {
+        while (this.queue.length > 1) {
+            this.queue.pop();
+        }
     }
 }
