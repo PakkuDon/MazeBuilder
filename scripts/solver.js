@@ -7,6 +7,10 @@ function Solver(graphics) {
         "bfs" : {
             "name" : "Breadth-first Search",
             "algorithm" : new BreadthSolver()
+        },
+        "astar" : {
+            "name" : "A* Search",
+            "algorithm" : new AStarSolver()
         }
     };
     this.graphics = graphics;
