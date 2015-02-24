@@ -13,6 +13,15 @@ function Edge(aX, aY, bX, bY) {
     this.aY = aY;
     this.bX = bX;
     this.bY = bY;
+
+    /**
+     * toString() - Returns a String containing the end-points
+     * of the edge in the form of colon-separated values.
+     */
+    this.toString = function() {
+        return this.aX + ":" + this.aY + ":"
+            + this.bX + ":" + this.bY;
+    }
 }
 
 function Maze(width, height) {
@@ -70,6 +79,24 @@ function Maze(width, height) {
         this.marker.currX = x;
         this.marker.currY = y;
     };
+
+    /**
+     * toString() - Returns a String containing the maze's width,
+     * height and edges in the form of colon-separated values.
+     */
+    this.toString = function() {
+        var value = "";
+
+        value += this.width + ":" + this.height;
+
+        // Add edge end-points to string value
+        for (var i = 0; i < this.edges.length; i++) {
+            var currentEdge = this.edges[i];
+            value += ":" + currentEdge.toString();
+        }
+
+        return value;
+    }
 
     this.initialize(width, height);
 }
