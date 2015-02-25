@@ -68,6 +68,15 @@
                     solver.solve(maze, startX, startY, endX, endY);
                 });
 
+                // Register event handler on load form
+                $("#load_form").submit(function() {
+                    var mazeString = document.getElementById("mazeString").value;
+                    maze.load(mazeString);
+                    maze_graphics.clear();
+                    maze_graphics.initialise(maze.width, maze.height);
+                    maze_graphics.drawMaze(maze);
+                });
+
                 // Register event handler on 'clear canvas' button
                 $("#clearCanvas").click(function() {
                     // TODO: Stop build/solve operations
@@ -78,6 +87,12 @@
                 $("#clearSolution").click(function() {
                     maze_graphics.clear();
                     maze_graphics.drawMaze(maze);
+                });
+
+                // Register event handler on 'export maze' button
+                $("#exportMaze").click(function() {
+                    var mazeString = maze.toString();
+                    document.getElementById("mazeString").value = mazeString;
                 });
 
             });
@@ -139,6 +154,19 @@
                                 </select>
                             </p>
                             <input type="submit" value="Solve maze" />
+                        </fieldset>
+                    </form>
+                    <form id="load_form" onsubmit="return false;">
+                        <fieldset>
+                            <legend>Load maze</legend>
+                            <div>
+                                <label for="mazeString">Maze string</label>
+                                <textarea id="mazeString"></textarea>
+                            </div>
+                            <div>
+                                <input type="submit" value="Load maze" />
+                                <button id="exportMaze">Export maze</button>
+                            </div>
                         </fieldset>
                     </form>
                 </div>

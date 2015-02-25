@@ -80,6 +80,26 @@ function Maze(width, height) {
         this.marker.currY = y;
     };
 
+    this.load = function(mazeString) {
+        var values = mazeString.split(":");
+
+        // Set width and height
+        var width = values.shift();
+        var height = values.shift();
+        this.initialize(width, height);
+
+        // Read edge data
+        for (var i = 0; i < values.length; i += 4) {
+            var aX = values[i];
+            var aY = values[i + 1];
+            var bX = values[i + 2];
+            var bY = values[i + 3];
+
+            var edge = new Edge(aX, aY, bX, bY);
+            this.addEdge(edge);
+        }
+    }
+
     /**
      * toString() - Returns a String containing the maze's width,
      * height and edges in the form of colon-separated values.
