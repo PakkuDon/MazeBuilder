@@ -8,6 +8,7 @@ function AStarSolver() {
     this.done = false;
     this.queue = new PriorityQueue();
     this.visitedEdges = [];
+    this.nodeCost = [[]];
     this.set = new Tree();
     this.solution = [];
 
@@ -19,6 +20,19 @@ function AStarSolver() {
 
         // Clear queue
         this.queue.clear();
+
+        // Clear node costs
+        while (this.nodeCost.length > 0) {
+            this.nodeCost.pop();
+        }
+
+        // Initialise node cost array
+        for (var x = 0; x < maze.width; x++) {
+            this.nodeCost.push([]);
+            for (var y = 0; y < maze.height; y++) {
+                this.nodeCost[x].push(0);
+            }
+        }
 
         // Clear existing visit flags
         while (this.visitFlags.length > 0) {
@@ -50,6 +64,9 @@ function AStarSolver() {
             new Edge(null, null, startPoint.x, startPoint.y),
             initialDistance
         );
+
+        // Set code of starting point to 0
+        this.nodeCost[startPoint.x][startPoint.y] = 0;
     }
 
     this.solve = function(maze) {
@@ -81,14 +98,17 @@ function AStarSolver() {
             if (this.visitFlags[neighbour.x][neighbour.y] === false) {
                 // Calculate travel costs for each neighbour and
                 // add them to the queue using this cost as its priority
-                var distanceFromStart = this.getDistance(
-                    this.startPoint, neighbour);
-                var distanceFromEnd = this.getDistance(
-                    this.endPoint, neighbour);
+                // TODO: Refactor here
+                this.nodeCost[neighbour.x][neighbour.y]
+                    = this.nodeCost[current.x][current.y]
+                    + this.getDistance(current, neighbour);
+                var distanceFromEnd = this.getDistance(this.endPoint, neighbour);
+                var priority = this.nodeCost[neighbour.x][neighbour.y]
+                    + distanceFromEnd;
                 this.queue.add(new Edge(
                     current.x, current.y,
                     neighbour.x, neighbour.y
-                ), distanceFromStart, distanceFromEnd);
+                ), priority);
             }
         }
 
