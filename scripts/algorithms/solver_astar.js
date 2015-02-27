@@ -1,6 +1,4 @@
-/**
- * Heuristic used: Euclidean distance.
- */
+
 function AStarSolver() {
     this.startPoint = null;
     this.endPoint = null;
@@ -77,7 +75,7 @@ function AStarSolver() {
         }
         var current = maze.grid[currentEdge.bX][currentEdge.bY];
 
-        // If end point reached, set flag and generate path from start to end
+        // If end point reached, set flag and reconstruct path from start to end
         if (current == this.endPoint) {
             this.done = true;
             this.set.merge(previous, current);
@@ -92,19 +90,20 @@ function AStarSolver() {
             }
         }
 
+        var currentNodeCost = this.nodeCost[current.x][current.y];
+
         // Get unvisited neighbours of current cell
         for (var i = 0; i < current.neighbours.length; i++) {
             var neighbour = current.neighbours[i];
             if (this.visitFlags[neighbour.x][neighbour.y] === false) {
                 // Calculate travel costs for each neighbour and
                 // add them to the queue using this cost as its priority
-                // TODO: Refactor here
                 this.nodeCost[neighbour.x][neighbour.y]
-                    = this.nodeCost[current.x][current.y]
-                    + this.getDistance(current, neighbour);
-                var distanceFromEnd = this.getDistance(this.endPoint, neighbour);
+                    = currentNodeCost + this.getDistance(current, neighbour);
+                var distanceFromEnd = this.getDistance(neighbour, this.endPoint);
                 var priority = this.nodeCost[neighbour.x][neighbour.y]
                     + distanceFromEnd;
+
                 this.queue.add(new Edge(
                     current.x, current.y,
                     neighbour.x, neighbour.y
@@ -124,12 +123,10 @@ function AStarSolver() {
 
     /**
      * getDistance() - Returns the difference between the given cells.
-     * Distance is currently calculated as Euclidean distance.
+     * Distance is currently calculated as Manhattan distance.
      */
     this.getDistance = function(cellA, cellB) {
-        return Math.sqrt(
-            Math.pow(cellA.x - cellA.y, 2) +
-            Math.pow(cellB.x - cellB.y, 2)
-        );
+        return Math.abs(cellB.x - cellA.x)
+            + Math.abs(cellB.y - cellA.y);
     }
 }
