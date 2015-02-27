@@ -30,26 +30,24 @@
                 var solver = new Solver(maze_graphics);
 
                 // Populate drop-downs with algorithms in builder
-                var build_algorithms = $("#build_algorithms");
                 for (var strategy in builder.strategies) {
-                    build_algorithms.append(
+                    $("#build_algorithms").append(
                         $("<option />").val(strategy)
-                        .text(builder.strategies[strategy].name));
+                            .text(builder.strategies[strategy].name));
                 }
 
                 // Populate drop-downs with algorithms in solver
-                var solve_algorithms = $("#solve_algorithms");
                 for (var strategy in solver.strategies) {
-                    solve_algorithms.append(
+                    $("#solve_algorithms").append(
                         $("<option />").val(strategy)
-                        .text(solver.strategies[strategy].name));
+                            .text(solver.strategies[strategy].name));
                 }
 
                 // Register event handler on build-options form
                 $("#build_form").submit(function() {
-                    var width = document.getElementById("width").value;
-                    var height = document.getElementById("height").value;
-                    var algorithm = document.getElementById("build_algorithms").value;
+                    var width = $("#width").val();
+                    var height = $("#height").val();
+                    var algorithm = $("#build_algorithms").val();
 
                     // TODO: Validation
                     builder.setStrategy(algorithm);
@@ -58,11 +56,11 @@
 
                 // Register event handler on solve-options form
                 $("#solve_form").submit(function() {
-                    var algorithm = document.getElementById("solve_algorithms").value;
-                    var startX = document.getElementById("startX").value;
-                    var startY = document.getElementById("startY").value;
-                    var endX = document.getElementById("endX").value;
-                    var endY = document.getElementById("endY").value;
+                    var algorithm = $("#solve_algorithms").val();
+                    var startX = $("#startX").val();
+                    var startY = $("#startY").val();
+                    var endX = $("#endX").val();
+                    var endY = $("#endY").val();
 
                     solver.setStrategy(algorithm);
                     solver.solve(maze, startX, startY, endX, endY);
@@ -70,7 +68,7 @@
 
                 // Register event handler on load form
                 $("#load_form").submit(function() {
-                    var mazeString = document.getElementById("mazeString").value;
+                    var mazeString = $("#mazeString").val();
                     maze.load(mazeString);
                     maze_graphics.clear();
                     maze_graphics.initialise(maze.width, maze.height);
@@ -92,7 +90,7 @@
                 // Register event handler on 'export maze' button
                 $("#exportMaze").click(function() {
                     var mazeString = maze.toString();
-                    document.getElementById("mazeString").value = mazeString;
+                    $("#mazeString").val(mazeString);
                 });
 
             });
