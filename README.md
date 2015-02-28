@@ -10,9 +10,10 @@ Maze-builder algorithms:
 
 - Depth-first search
 - Randomized Kruskal's
+- Randomized Prim's
 
 Maze-solver algorithms:
 
 - Depth-first search
 - Breadth-first search
-
+- A* Search
