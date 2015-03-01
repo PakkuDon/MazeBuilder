@@ -15,8 +15,8 @@ function MazeGraphics(canvasId) {
     this.yOffset = 0;
 
     // Colours used when drawing on canvas
+    this.foregroundColour = "#FFF";
     this.backgroundColour = "#000";
-    this.edgeColour = "#FFF";
     this.visitedColour = "#F00";
     this.solutionColour = "#09F";
 
@@ -60,7 +60,7 @@ function MazeGraphics(canvasId) {
      * drawMazeEdge() - Draws a line representing an unmarked edge.
      */
     this.drawMazeEdge = function(edge) {
-        this.drawEdge(edge, this.edgeColour);
+        this.drawEdge(edge, this.foregroundColour);
     }
 
     /**
@@ -75,7 +75,7 @@ function MazeGraphics(canvasId) {
      */
     this.drawMaze = function(maze) {
         for (var i = 0; i < maze.edges.length; i++) {
-            this.drawEdge(maze.edges[i], this.edgeColour);
+            this.drawEdge(maze.edges[i], this.foregroundColour);
         }
     }
 

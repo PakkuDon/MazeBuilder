@@ -93,6 +93,27 @@
                     $("#mazeString").val(mazeString);
                 });
 
+                // Register event handlers for colour inputs
+                // TODO: Refactor the lines below
+                $("#foregroundColour").change(function() {
+                    var colour = $("#foregroundColour").val();
+                    maze_graphics.foregroundColour = colour;
+                });
+
+                $("#backgroundColour").change(function() {
+                    var colour = $("#backgroundColour").val();
+                    maze_graphics.backgroundColour = colour;
+                });
+
+                $("#visitedColour").change(function() {
+                    var colour = $("#visitedColour").val();
+                    maze_graphics.visitedColour = colour;
+                });
+
+                $("#solutionColour").change(function() {
+                    var colour = $("#solutionColour").val();
+                    maze_graphics.solutionColour = colour;
+                });
             });
         </script>
     </head>
@@ -164,6 +185,27 @@
                             <div>
                                 <input type="submit" value="Load maze" />
                                 <button id="exportMaze">Export maze</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                    <form>
+                        <fieldset>
+                            <legend>Colours</legend>
+                            <div>
+                                <label for="foregroundColour">Foreground</label>
+                                <input id="foregroundColour" type="color" value="#FFFFFF" />
+                            </div>
+                            <div>
+                                <label for="backgroundColour">Background</label>
+                                <input id="backgroundColour" type="color" value="#000000" />
+                            </div>
+                            <div>
+                                <label for="visitedColour">Visited</label>
+                                <input id="visitedColour" type="color" value="#FF0000" />
+                            </div>
+                            <div>
+                                <label for="solutionColour">Solution</label>
+                                <input id="solutionColour" type="color" value="#0099FF" />
                             </div>
                         </fieldset>
                     </form>
