@@ -6,15 +6,13 @@ DisjointSet.prototype = new Tree();
 DisjointSet.prototype.constructor = DisjointSet;
 /**
  * find() - Returns the parent of node.
- * TODO: Path-compression
+ * Performs path-compression.
  */
 DisjointSet.prototype.find = function(node) {
-    if (node.parent == node) {
-        return node;
+    if (node.parent != node) {
+        node.parent = this.find(node.parent);
     }
-    else {
-        return this.find(node.parent);
-    }
+    return node.parent;
 };
 
 /**
