@@ -4,13 +4,17 @@ function Builder(graphics) {
             "name" : "Depth-first Search",
             "algorithm" : new DepthBuilder()
         },
-        'kruskal' : {
+        "kruskal" : {
             "name" : "Randomized Kruskal's",
             "algorithm" : new KruskalBuilder()
         },
-        'prim' : {
+        "prim" : {
             "name" : "Randomized Prim's",
             "algorithm" : new PrimBuilder()
+        },
+        "eller" : {
+            "name" : "Eller's",
+            "algorithm" : new EllerBuilder()
         }
     };
     this.graphics = graphics;
@@ -45,7 +49,9 @@ function Builder(graphics) {
             self.strategy.build(maze);
 
             // Draw new edge
-            self.graphics.drawMazeEdge(maze.edges[maze.edges.length - 1]);
+            if (maze.edges.length > 0) {
+                self.graphics.drawMazeEdge(maze.edges[maze.edges.length - 1]);
+            }
 
             // TODO: Draw marker
 
