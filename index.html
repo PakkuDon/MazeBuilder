@@ -114,6 +114,13 @@
                     var colour = $("#solutionColour").val();
                     maze_graphics.solutionColour = colour;
                 });
+
+                // Set delay value
+                $("#timerDelay").change(function() {
+                    var newDelay = $("#timerDelay").val();
+                    builder.delay = newDelay;
+                    solver.delay = newDelay;
+                });
             });
         </script>
     </head>
@@ -206,6 +213,10 @@
                             <div>
                                 <label for="solutionColour">Solution</label>
                                 <input id="solutionColour" type="color" value="#0099FF" />
+                            </div>
+                            <div>
+                                <label for="timerDelay">Delay</label>
+                                <input id="timerDelay" type="range" min="1" max="25" />
                             </div>
                         </fieldset>
                     </form>

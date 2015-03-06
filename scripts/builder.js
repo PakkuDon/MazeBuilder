@@ -15,6 +15,7 @@ function Builder(graphics) {
     };
     this.graphics = graphics;
     this.strategy = null;
+    this.delay = 25;
 
     this.setStrategy = function(strategy) {
         this.strategy = this.strategies[strategy].algorithm;
@@ -53,6 +54,6 @@ function Builder(graphics) {
                 maze.setMarker(-1, -1);
                 clearInterval(self.intervalID);
             }
-        }, 25);
+        }, this.delay);
     };
 }

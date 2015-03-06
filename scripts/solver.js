@@ -15,6 +15,7 @@ function Solver(graphics) {
     };
     this.graphics = graphics;
     this.strategy = null;
+    this.delay = 25;
 
     this.setStrategy = function(strategy) {
         this.strategy = this.strategies[strategy].algorithm;
@@ -60,6 +61,6 @@ function Solver(graphics) {
                 var solution = self.strategy.solution;
                 self.graphics.drawSolution(solution);
             }
-        }, 25);
+        }, this.delay);
     }
 }
