@@ -78,11 +78,17 @@ function EllerBuilder () {
                 if (this.setList.length > 0) {
                     var parentCell = this.setList.shift();
                     var childCell = maze.grid[parentCell.x][parentCell.y + 1];
+                    var setNode = this.set.getNode(parentCell);
 
-                    if (Math.random() >= 0.5 && this.set.merge(parentCell, childCell)) {
-                        maze.addEdge(new Edge(parentCell.x, parentCell.y, childCell.x, childCell.y));
+                    if (Math.random() >= 0.5 || setNode.parent == setNode) {
+                        if (this.set.merge(parentCell, childCell)) {
+                            maze.addEdge(new Edge(
+                                parentCell.x, parentCell.y, childCell.x, childCell.y));
+                        }
                     }
                 }
+                // If sets for current row processed,
+                // move to next row and reset flag
                 else {
                     this.currentY++;
                     this.currentX = 0;
