@@ -1,14 +1,7 @@
-html {
-    font-family: sans-serif, Arial;
-}
-
 body {
     background-color: #111;
 }
 
-#container {
-    margin: auto;
-}
 
 #body {
     background-color: #EEE;
@@ -20,22 +13,7 @@ header, footer {
     padding: 5px 15px;
 }
 
-header {
-    border-top-left-radius: 2em;
-    border-top-right-radius: 2em;
-}
-
-legend {
-    font-weight: bold;
-}
-
-label {
-    width: 90px;
-    display: inline-block;
-}
-
 #canvasPane {
-    border: 1px solid #000;
     padding: 10px;
     margin: 2px;
     text-align: center;
@@ -43,11 +21,6 @@ label {
 
 #view {
     background-color: #000;
-}
-
-footer {
-    border-bottom-left-radius: 2em;
-    border-bottom-right-radius: 2em;
 }
 
 footer a {

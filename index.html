@@ -20,6 +20,10 @@
         <script type="text/javascript" src="scripts/algorithms/solver_breadth.js"></script>
         <script type="text/javascript" src="scripts/algorithms/solver_astar.js"></script>
 
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="style.css" />
         <script type="text/javascript">
             $(document).ready(function() {
@@ -33,14 +37,14 @@
                 for (var strategy in builder.strategies) {
                     $("#build_algorithms").append(
                         $("<option />").val(strategy)
-                            .text(builder.strategies[strategy].name));
+                        .text(builder.strategies[strategy].name));
                 }
 
                 // Populate drop-downs with algorithms in solver
                 for (var strategy in solver.strategies) {
                     $("#solve_algorithms").append(
                         $("<option />").val(strategy)
-                            .text(solver.strategies[strategy].name));
+                        .text(solver.strategies[strategy].name));
                 }
 
                 // Register event handler on build-options form
@@ -125,98 +129,126 @@
         </script>
     </head>
     <body>
-        <div id="container">
+        <div class="container">
             <header>
                 <h1>Maze Builder</h1>
             </header>
             <div id="body">
                 <div id="options">
-                    <form id="build_form" onsubmit="return false;">
+                    <form class="form-horizontal" role="form" id="build_form" onsubmit="return false;">
                         <fieldset>
                             <legend>Build options</legend>
-                            <div>
-                                <label for="width">Width</label>
-                                <input type="number" min="2" max="100" required="required" id="width" />
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="width">Width</label>
+                                <div class="col-sm-2">
+                                    <input class="form-control" type="number" min="2" max="100" required="required" id="width" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="height">Height</label>
+                                <div class="col-sm-2">
+                                    <input class="form-control" type="number" min="2" max="100" required="required" id="height" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="build_algorithms">Algorithm</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control" id="build_algorithms">
+                                    </select>
+                                </div>
                             </div>
                             <div>
-                                <label for="height">Height</label>
-                                <input type="number" min="2" max="100" required="required" id="height" />
-                            </div>
-                            <div>
-                                <label for="build_algorithms">Algorithm</label>
-                                <select id="build_algorithms">
-                                </select>
-                            </div>
-                            <div>
-                                <input type="submit" value="Generate" />
+                                <input class="btn btn-default" type="submit" value="Generate" />
                             </div>
                         </fieldset>
                     </form>
-                    <form id="solve_form" onsubmit="return false;">
+                    <form class="form-horizontal" role="form" id="solve_form" onsubmit="return false;">
                         <fieldset>
                             <legend>Solve options</legend>
                             Note: Points are zero-indexed.
                             <div>Start point</div>
-                            <div>
-                                <label for="startX">x</label>
-                                <input type="number" min="0" max="100" required="required" id="startX" />
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="startX">x</label>
+                                <div class="col-sm-2">
+                                    <input class="form-control" type="number" min="0" max="100" required="required" id="startX" />
+                                </div>
                             </div>
-                            <div>
-                                <label for="startY">y</label>
-                                <input type="number" min="0" max="100" required="required" id="startY" />
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="startY">y</label>
+                                <div class="col-sm-2">
+                                    <input class="form-control" type="number" min="0" max="100" required="required" id="startY" />
+                                </div>
                             </div>
                             <div>End point</div>
-                            <div>
-                                <label for="endX">x</label>
-                                <input type="number" min="0" max="100" required="required" id="endX" />
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="endX">x</label>
+                                <div class="col-sm-2">
+                                    <input class="form-control" type="number" min="0" max="100" required="required" id="endX" />
+                                </div>
                             </div>
-                            <div>
-                                <label for="endY">y</label>
-                                <input type="number" min="0" max="100" required="required" id="endY" />
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="endY">y</label>
+                                <div class="col-sm-2">
+                                    <input class="form-control" type="number" min="0" max="100" required="required" id="endY" />
+                                </div>
                             </div>
-                            <p>
-                                <label for="solve_algorithms">Algorithm</label>
-                                <select id="solve_algorithms">
-                                </select>
-                            </p>
-                            <input type="submit" value="Solve maze" />
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="solve_algorithms">Algorithm</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control" id="solve_algorithms">
+                                    </select>
+                                </div>
+                            </div>
+                            <input class="btn btn-default" type="submit" value="Solve maze" />
                         </fieldset>
                     </form>
-                    <form id="load_form" onsubmit="return false;">
+                    <form class="form-horizontal" id="load_form" role="form" onsubmit="return false;">
                         <fieldset>
                             <legend>Load maze</legend>
-                            <div>
-                                <label for="mazeString">Maze string</label>
-                                <textarea id="mazeString"></textarea>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="mazeString">Maze string</label>
+                                <div class="col-sm-4">
+                                    <textarea class="form-control" id="mazeString"></textarea>
+                                </div>
                             </div>
-                            <div>
-                                <input type="submit" value="Load maze" />
-                                <button id="exportMaze">Export maze</button>
-                            </div>
+
+                            <input class="btn btn-default" type="submit" value="Load maze" />
+                            <button class="btn btn-default" id="exportMaze">Export maze</button>
+
                         </fieldset>
                     </form>
-                    <form>
+                    <form class="form-horizontal" role="form">
                         <fieldset>
                             <legend>Colours</legend>
-                            <div>
-                                <label for="foregroundColour">Foreground</label>
-                                <input id="foregroundColour" type="color" value="#FFFFFF" />
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="foregroundColour">Foreground</label>
+                                <div class="col-sm-2">
+                                    <input class="form-control" id="foregroundColour" type="color" value="#FFFFFF" />
+                                </div>
                             </div>
-                            <div>
-                                <label for="backgroundColour">Background</label>
-                                <input id="backgroundColour" type="color" value="#000000" />
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="backgroundColour">Background</label>
+                                <div class="col-sm-2">
+                                    <input class="form-control" id="backgroundColour" type="color" value="#000000" />
+                                </div>
                             </div>
-                            <div>
-                                <label for="visitedColour">Visited</label>
-                                <input id="visitedColour" type="color" value="#FF0000" />
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="visitedColour">Visited</label>
+                                <div class="col-sm-2">
+                                    <input class="form-control" id="visitedColour" type="color" value="#FF0000" />
+                                </div>
                             </div>
-                            <div>
-                                <label for="solutionColour">Solution</label>
-                                <input id="solutionColour" type="color" value="#0099FF" />
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="solutionColour">Solution</label>
+                                <div class="col-sm-2">
+                                    <input class="form-control" id="solutionColour" type="color" value="#0099FF" />
+                                </div>
                             </div>
-                            <div>
-                                <label for="timerDelay">Delay</label>
-                                <input id="timerDelay" type="range" min="1" max="25" />
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="timerDelay">Delay</label>
+                                <div class="col-sm-3">
+                                    <input class="form-control" id="timerDelay" type="range" min="1" max="25" />
+                                </div>
                             </div>
                         </fieldset>
                     </form>
@@ -226,10 +258,10 @@
                         Your browser does not support the canvas tag.
                     </canvas>
                     <p>
-                        <button id="clearCanvas">
+                        <button class="btn btn-default" id="clearCanvas">
                             Clear canvas
                         </button>
-                        <button id="clearSolution">
+                        <button class="btn btn-default" id="clearSolution">
                             Clear solution
                         </button>
                     </p>
