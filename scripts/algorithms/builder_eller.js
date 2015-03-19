@@ -9,6 +9,9 @@ function EllerBuilder () {
     this.initialise = function(width, height) {
         this.done = false;
         this.set.clear();
+
+        // Reset currentIndex
+        // currentIndex - Determines what 'step' of the build process we're in
         this.currentIndex = 0;
 
         // Empty set list
@@ -44,7 +47,8 @@ function EllerBuilder () {
             // current row is reached.
             // Step 2 is completed once the set list is exhausted
             if (this.currentX == maze.width - 1 ||
-                (this.currentIndex == 1 && this.setList.length == 0)) {
+                (this.currentIndex == 1
+                 && Object.keys(this.setList).length == 0)) {
                 this.currentIndex = (this.currentIndex + 1) % 3;
                 this.currentX = 0;
             }
@@ -56,21 +60,24 @@ function EllerBuilder () {
         if (this.currentX == 0) {
             for (var x = 0; x < maze.width; x++) {
                 var currentCell = maze.grid[x][this.currentY];
-                if (this.set.getNode(currentCell) == "undefined") {
+                if (typeof this.set.getNode(currentCell) === "undefined") {
                     this.set.makeSet(currentCell);
                 }
             }
         }
 
-        if (this.currentX < maze.width - 1) {
-            var cellA = maze.grid[this.currentX][this.currentY];
-            var cellB = maze.grid[this.currentX + 1][this.currentY];
+        // Attempt to merge cell at current x, y position
+        // with the cell to the right
+        var cellA = maze.grid[this.currentX][this.currentY];
+        var cellB = maze.grid[this.currentX + 1][this.currentY];
 
-            // Decide if cells should be merged or not
-            if (Math.random() >= 0.5 || this.currentY == maze.height - 1) {
-                if (this.set.merge(cellA, cellB)) {
-                    maze.addEdge(new Edge(cellA.x, cellA.y, cellB.x, cellB.y));
-                }
+        // Decide if cells should be merged or not
+        // Merges on last row must always be attempted.
+        // Otherwise, merges are attempted randomly.
+        if (Math.random() >= 0.5 || this.currentY == maze.height - 1) {
+            // If merge successful add resulting edge to maze
+            if (this.set.merge(cellA, cellB)) {
+                maze.addEdge(new Edge(cellA.x, cellA.y, cellB.x, cellB.y));
             }
         }
 
@@ -82,18 +89,16 @@ function EllerBuilder () {
             for (var x = 0; x < maze.width; x++) {
                 var currentCell = maze.grid[x][this.currentY];
                 var node = this.set.getNode(currentCell);
-
-                if (typeof node === "undefined") {
-                    this.set.makeSet(currentCell);
-                    node = this.set.getNode(currentCell);
-                }
                 var root = this.set.find(node).data;
                 var setEntry = this.setList[root.toString()];
 
+                // If root cell not yet included in set list,
+                // add new entry
                 if (typeof setEntry === "undefined") {
                     this.setList[root.toString()] = [];
                 }
 
+                // Add currentCell to list of descendants for root cell
                 this.setList[root.toString()].push(currentCell);
             }
         }
@@ -101,40 +106,46 @@ function EllerBuilder () {
 
     this.joinSets = function(maze) {
         // Retrieve set from setList hash
-        var firstKey = null;
-        for (var key in this.setList) {
-            firstKey = key;
-            break;
-        }
+        var firstKey = Object.keys(this.setList)[0];
 
         if (firstKey !== null) {
-            // Attempt to merge a random child of root cell in firstKey with a cell from the next row
+            // Attempt to merge a random child of root cell in firstKey
+            // with cell below it
             var currentSet = this.setList[firstKey];
-            var parentCell = currentSet[Math.floor(Math.random() * currentSet.length)];
-            var childCell = maze.grid[parentCell.x][parentCell.y];
+            var randomIndex = Math.floor(Math.random() * currentSet.length);
 
-            // If merge successful, add resulting edge to maze and remove set from list
+            var parentCell = currentSet[randomIndex];
+            var childCell = maze.grid[parentCell.x][parentCell.y + 1];
+
+            // If merge successful, add resulting edge to maze
+            // and remove current set from list
             if (this.set.merge(parentCell, childCell)) {
-                maze.addEdge(new Edge(parentCell.x, parentCell.y, childCell.x, childCell.y));
+                maze.addEdge(new Edge(
+                    parentCell.x, parentCell.y, childCell.x, childCell.y));
                 delete this.setList[firstKey];
             }
         }
     }
 
     this.joinVertically = function(maze) {
+        // Get cell at current x,y position and the cell below it
         var parentCell = maze.grid[this.currentX][this.currentY];
         var childCell = maze.grid[this.currentX][this.currentY + 1];
 
+        // Choose to merge cells randomly
+        // If merge successful, add resulting edge to maze
         if (Math.random() >= 0.5) {
             if (this.set.merge(parentCell, childCell)) {
-                maze.addEdge(new Edge(parentCell.x, parentCell.y, childCell.x, childCell.y));
+                maze.addEdge(new Edge(parentCell.x, parentCell.y,
+                                      childCell.x, childCell.y));
             }
         }
 
+        // Move to next cell in row
         this.currentX++;
 
         // If end of row reached, move to next row
-        if (this.currentX == maze.width - 1) {
+        if (this.currentX == maze.width) {
             this.currentY++;
         }
     }
