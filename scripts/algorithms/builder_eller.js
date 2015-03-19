@@ -145,7 +145,7 @@ function EllerBuilder () {
         this.currentX++;
 
         // If end of row reached, move to next row
-        if (this.currentX == maze.width) {
+        if (this.currentX == maze.width - 1) {
             this.currentY++;
         }
     }
