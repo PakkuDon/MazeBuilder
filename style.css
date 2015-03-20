@@ -19,8 +19,15 @@ header, footer {
     text-align: center;
 }
 
-#view {
-    background-color: #000;
+canvas {
+    background-color: #000000;
+}
+
+@media(max-width: 480px) {
+    canvas {
+        width: 100%;
+        height: auto;
+    }
 }
 
 footer a {
