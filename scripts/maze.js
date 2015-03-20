@@ -43,10 +43,9 @@ function Maze(width, height) {
         this.width = width;
         this.height = height;
 
-        // Clear existing grid contents
-        while (this.grid.length > 0) {
-            this.grid.pop();
-        }
+        // Clear existing grid and edge contents
+        Utility.clearArray(this.grid);
+        Utility.clearArray(this.edges);
 
         // Create cells
         for (var x = 0; x < width; x++) {
@@ -54,11 +53,6 @@ function Maze(width, height) {
             for (var y = 0; y < height; y++) {
                 this.grid[x].push(new Cell(x, y));
             }
-        }
-
-        // Clear existing edges
-        while (this.edges.length > 0) {
-            this.edges.pop();
         }
     }
 

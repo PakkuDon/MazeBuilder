@@ -8,9 +8,7 @@ function PrimBuilder() {
         this.set.clear();
 
         // Empty edge list
-        while (this.edges.length > 0) {
-            this.edges.pop();
-        }
+        Utility.clearArray(this.edges);
 
         // Get coordinates of starting point / center of maze
         var startX = Math.floor(width / 2);

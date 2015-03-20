@@ -12,10 +12,11 @@ function BreadthSolver() {
         this.endPoint = maze.grid[endPoint.x][endPoint.y];
         this.set.clear();
 
-        // Clear existing visit flags
-        while (this.visitFlags.length > 0) {
-            this.visitFlags.pop();
-        }
+        // Clear data from previous run
+        Utility.clearArray(this.visitFlags);
+        Utility.clearArray(this.visitedEdges);
+        Utility.clearArray(this.stack);
+        Utility.clearArray(this.solution);
 
         // Initialize visit flags array
         for (var x = 0; x < maze.width; x++) {
@@ -23,21 +24,6 @@ function BreadthSolver() {
             for (var y = 0; y < maze.height; y++) {
                 this.visitFlags[x].push(false);
             }
-        }
-
-        // Clear stack
-        while (this.stack.length > 0) {
-            this.stack.pop();
-        }
-
-        // Clear visited edges
-        while (this.visitedEdges.length > 0) {
-            this.visitedEdges.pop();
-        }
-
-        // Clear solution
-        while (this.solution.length > 0) {
-            this.solution.pop();
         }
 
         // Add starting cell to stack

@@ -19,10 +19,11 @@ function AStarSolver() {
         // Clear queue
         this.queue.clear();
 
-        // Clear node costs
-        while (this.nodeCost.length > 0) {
-            this.nodeCost.pop();
-        }
+        // Clear other data from previous run
+        Utility.clearArray(this.nodeCost);
+        Utility.clearArray(this.visitFlags);
+        Utility.clearArray(this.visitedEdges);
+        Utility.clearArray(this.solution);
 
         // Initialise node cost array
         for (var x = 0; x < maze.width; x++) {
@@ -32,27 +33,12 @@ function AStarSolver() {
             }
         }
 
-        // Clear existing visit flags
-        while (this.visitFlags.length > 0) {
-            this.visitFlags.pop();
-        }
-
         // Initialize visit flags array
         for (var x = 0; x < maze.width; x++) {
             this.visitFlags.push([]);
             for (var y = 0; y < maze.height; y++) {
                 this.visitFlags[x].push(false);
             }
-        }
-
-        // Clear visited edges
-        while (this.visitedEdges.length > 0) {
-            this.visitedEdges.pop();
-        }
-
-        // Clear solution
-        while (this.solution.length > 0) {
-            this.solution.pop();
         }
 
         // Add starting edge to queue

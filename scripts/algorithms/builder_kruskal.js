@@ -10,9 +10,7 @@ function KruskalBuilder() {
         this.done = false;
 
         // Clear existing possible edges
-        while (this.possibleEdges.length > 0) {
-            this.possibleEdges.pop();
-        }
+        Utility.clearArray(this.possibleEdges);
 
         // Generate list of possible edges
         for (var x = 1; x < width; x++) {

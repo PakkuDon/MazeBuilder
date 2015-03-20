@@ -8,10 +8,9 @@ function DepthBuilder () {
     this.initialise = function(width, height) {
         this.done = false;
 
-        // Clear visited flags array
-        while (this.visited.length > 0) {
-            this.visited.pop();
-        }
+        // Clear visited flags and stack
+        Utility.clearArray(this.visited);
+        Utility.clearArray(this.stack);
 
         // Initialise visit flags
         for (var x = 0; x < width; x++) {
@@ -29,11 +28,6 @@ function DepthBuilder () {
         this.visitedCount = 0;
         this.visited[this.current.x][this.current.y] = true;
         this.visitedCount++;
-
-        // Clear stack
-        while (this.stack.length > 0) {
-            this.stack.pop();
-        }
     };
 
     this.getUnvisitedNeighbours = function(maze, x, y) {
