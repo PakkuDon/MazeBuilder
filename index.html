@@ -8,6 +8,7 @@
         <script type="text/javascript" src="scripts/solver.js"></script>
         <script type="text/javascript" src="scripts/maze_graphics.js"></script>
         <script type="text/javascript" src="scripts/utility.js"></script>
+        <script type="text/javascript" src="scripts/form_validator.js"></script>
 
         <script type="text/javascript" src="scripts/data_structures/tree.js"></script>
         <script type="text/javascript" src="scripts/data_structures/disjointset.js"></script>
@@ -34,6 +35,7 @@
                 var maze_graphics = new MazeGraphics("view");
                 var builder = new Builder(maze_graphics);
                 var solver = new Solver(maze_graphics);
+                var validator = new FormValidator();
 
                 // Populate drop-downs with algorithms in builder
                 for (var strategy in builder.strategies) {
@@ -51,25 +53,67 @@
 
                 // Register event handler on build-options form
                 $("#build_form").submit(function() {
+                    // Remove errors from previous run
+                    $("#build_form_errors").remove();
+
+                    // Retrieve values from form;
                     var width = $("#width").val();
                     var height = $("#height").val();
                     var algorithm = $("#build_algorithms").val();
 
-                    // TODO: Validation
-                    builder.setStrategy(algorithm);
-                    builder.build(maze, width, height);
+                    // If validation succeeds, execute algorithm
+                    if (validator.validateBuildForm(width, height) === true) {
+                        builder.setStrategy(algorithm);
+                        builder.build(maze, width, height);
+                    }
+                    // Else, display errors
+                    else {
+                        var errorDiv = $("<div id=\"build_form_errors\">").addClass("alert alert-danger");
+
+                        var errors = validator.buildFormErrors;
+                        var items = [];
+                        for (var i = 0; i < errors.length; i++) {
+                            var error = errors[i];
+                            items.push("<li>" + error + "</li>");
+                        }
+
+                        errorDiv.append("<ul>" + items.join("") + "</ul>");
+                        $("#build_form_inputs").prepend(errorDiv);
+                    }
                 });
 
                 // Register event handler on solve-options form
                 $("#solve_form").submit(function() {
+                    // Remove errors from previous run
+                    $("#solve_form_errors").remove();
+
+                    // Retrieve values from form
                     var algorithm = $("#solve_algorithms").val();
                     var startX = $("#startX").val();
                     var startY = $("#startY").val();
                     var endX = $("#endX").val();
                     var endY = $("#endY").val();
 
-                    solver.setStrategy(algorithm);
-                    solver.solve(maze, startX, startY, endX, endY);
+                    // If validation succeeds, execute algorithm
+                    if (validator.validateSolveForm(startX, startY, endX, endY, maze) === true) {
+                        solver.setStrategy(algorithm);
+                        solver.solve(maze, startX, startY, endX, endY);
+                    }
+                    // Else, display errors
+                    else {
+                        // Construct container div
+                        var errorDiv = $("<div id=\"solve_form_errors\">").addClass("alert alert-danger");
+
+                        var errors = validator.solveFormErrors;
+                        var items = [];
+                        for (var i = 0; i < errors.length; i++) {
+                            var error = errors[i];
+                            items.push("<li>"+ error +"</li>");
+                        }
+
+                        errorDiv.append("<ul>" + items.join("") + "</ul>");
+                        $("#solve_form_inputs").prepend(errorDiv);
+                    }
                 });
 
                 // Register event handler on load form
