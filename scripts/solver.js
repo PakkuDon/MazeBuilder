@@ -11,6 +11,10 @@ function Solver(graphics) {
         "astar" : {
             "name" : "A* Search",
             "algorithm" : new AStarSolver()
+        },
+        "ucs" : {
+            "name" : "Uniform-cost Search",
+            "algorithm" : new UniformCostSolver()
         }
     };
     this.graphics = graphics;
