@@ -106,7 +106,7 @@ function PriorityQueue() {
      * Returns -1 if element not found
      */
     this.getPriority = function(data) {
-        for (var i = 0; i < this.queue.length; i++) {
+        for (var i = 1; i < this.queue.length; i++) {
             if (this.queue[i].data === data) {
                 return this.queue[i].priority;
             }
@@ -119,9 +119,10 @@ function PriorityQueue() {
      * Returns true if operation successful, false otherwise.
      */
     this.delete = function(data) {
-        for (var i = 0; i < this.queue.length; i++) {
+        for (var i = 1; i < this.queue.length; i++) {
             if (this.queue[i].data === data) {
                 this.queue.splice(i, 1);
+                this.heapUp(this.queue.length - 1);
                 return true;
             }
         }
