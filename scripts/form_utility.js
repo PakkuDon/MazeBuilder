@@ -1,6 +1,17 @@
-function FormValidator() {
+function FormUtility() {
     this.buildFormErrors = [];
     this.solveFormErrors = [];
+
+    /**
+     * populateAlgorithmList() - Add options to list element with given ID.
+     */
+    this.populateAlgorithmList = function(listId, strategies) {
+        for (var strategy in strategies) {
+            $("#" + listId).append(
+                $("<option />").val(strategy)
+                .text(strategies[strategy].name));
+        }
+    }
 
     /**
      * validateBuildForm() - Determines whether or not the
@@ -68,7 +79,7 @@ function FormValidator() {
                     this.solveFormErrors.push(key + " must be between 0 and current maze width.");
                 }
                 else if (/Y/.test(key) === true &&
-                    (value < 0 || value >= maze.height)) {
+                         (value < 0 || value >= maze.height)) {
                     this.solveFormErrors.push(key + " must be between 0 and current maze height.");
                 }
             }

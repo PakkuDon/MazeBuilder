@@ -8,7 +8,7 @@
         <script type="text/javascript" src="scripts/solver.js"></script>
         <script type="text/javascript" src="scripts/maze_graphics.js"></script>
         <script type="text/javascript" src="scripts/utility.js"></script>
-        <script type="text/javascript" src="scripts/form_validator.js"></script>
+        <script type="text/javascript" src="scripts/form_utility.js"></script>
 
         <script type="text/javascript" src="scripts/data_structures/tree.js"></script>
         <script type="text/javascript" src="scripts/data_structures/disjointset.js"></script>
@@ -36,21 +36,11 @@
                 var maze_graphics = new MazeGraphics("view");
                 var builder = new Builder(maze_graphics);
                 var solver = new Solver(maze_graphics);
-                var validator = new FormValidator();
+                var formUtil = new FormUtility();
 
-                // Populate drop-downs with algorithms in builder
-                for (var strategy in builder.strategies) {
-                    $("#build_algorithms").append(
-                        $("<option />").val(strategy)
-                        .text(builder.strategies[strategy].name));
-                }
-
-                // Populate drop-downs with algorithms in solver
-                for (var strategy in solver.strategies) {
-                    $("#solve_algorithms").append(
-                        $("<option />").val(strategy)
-                        .text(solver.strategies[strategy].name));
-                }
+                // Populate drop-downs with algorithms from builder and solver
+                formUtil.populateAlgorithmList("build_algorithms", builder.strategies);
+                formUtil.populateAlgorithmList("solve_algorithms", solver.strategies);
 
                 // Register event handler on build-options form
                 $("#build_form").submit(function() {
@@ -63,7 +53,7 @@
                     var algorithm = $("#build_algorithms").val();
 
                     // If validation succeeds, execute algorithm
-                    if (validator.validateBuildForm(width, height) === true) {
+                    if (formUtil.validateBuildForm(width, height) === true) {
                         builder.setStrategy(algorithm);
                         builder.build(maze, width, height);
                     }
@@ -71,7 +61,7 @@
                     else {
                         var errorDiv = $("<div id=\"build_form_errors\">").addClass("alert alert-danger");
 
-                        var errors = validator.buildFormErrors;
+                        var errors = formUtil.buildFormErrors;
                         var items = [];
                         for (var i = 0; i < errors.length; i++) {
                             var error = errors[i];
@@ -96,7 +86,7 @@
                     var endY = $("#endY").val();
 
                     // If validation succeeds, execute algorithm
-                    if (validator.validateSolveForm(startX, startY, endX, endY, maze) === true) {
+                    if (formUtil.validateSolveForm(startX, startY, endX, endY, maze) === true) {
                         solver.setStrategy(algorithm);
                         solver.solve(maze, startX, startY, endX, endY);
                     }
@@ -105,7 +95,7 @@
                         // Construct container div
                         var errorDiv = $("<div id=\"solve_form_errors\">").addClass("alert alert-danger");
 
-                        var errors = validator.solveFormErrors;
+                        var errors = formUtil.solveFormErrors;
                         var items = [];
                         for (var i = 0; i < errors.length; i++) {
                             var error = errors[i];
