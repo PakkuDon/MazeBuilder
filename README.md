@@ -18,6 +18,7 @@ Maze-solver algorithms:
 - Depth-first search
 - Breadth-first search
 - A* Search
+- Uniform-cost Search
 
 ## References
 
