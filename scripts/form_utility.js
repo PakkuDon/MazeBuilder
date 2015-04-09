@@ -94,6 +94,42 @@ function FormUtility() {
     }
 
     /**
+     * validateMazeString - Checks if the given maze string fits
+     * a certain pattern. Returns true if it matches, false otherwise.
+     */
+    this.validateMazeString = function(mazeString) {
+        if (/^[0-9]{1,3}(:[0-9]{1,3})+$/.test(mazeString) === false) {
+            return false;
+        }
+        else {
+            var values = mazeString.split(":");
+
+            // If not enough values to construct edges, return error
+            if ((values.length - 2) % 4 !== 0) {
+                return false;
+            }
+
+            // If dimensions invalid, return error
+            var width = parseInt(values.shift());
+            var height = parseInt(values.shift());
+            if (width < 0 || width >= 100 || height < 0 || height >= 100) {
+                return false;
+            }
+
+            // If end-points for edges invalid, return failure
+            // TODO: Check validity of points with respect to the edge it is in
+            for (var i = 0; i < values.length; i++) {
+                var value = parseInt(values[i]);
+                if (value < 0 || value >= width || value >= height) {
+                    return false;
+                }
+
+            }
+        }
+        return true;
+    }
+
+    /**
      * isNumeric() - Returns true if value is recognised as a
      * number, false otherwise.
      * Doesn't check for decimals or negative numbers.

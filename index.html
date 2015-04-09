@@ -109,11 +109,24 @@
 
                 // Register event handler on load form
                 $("#load_form").submit(function() {
+                    // Remove errors from previous run
+                    $("#load_form_errors").remove();
+
+                    // Validate maze string
                     var mazeString = $("#mazeString").val();
-                    maze.load(mazeString);
-                    maze_graphics.clear();
-                    maze_graphics.initialise(maze.width, maze.height);
-                    maze_graphics.drawMaze(maze);
+                    if (formUtil.validateMazeString(mazeString) === true) {
+                        // If valid, load and display maze constructed from input string
+                        maze.load(mazeString);
+                        maze_graphics.clear();
+                        maze_graphics.initialise(maze.width, maze.height);
+                        maze_graphics.drawMaze(maze);
+                    }
+                    else {
+                        // Else, display error
+                        var errorDiv = $("<div id=\"load_form_errors\">").addClass("alert alert-danger");
+                        errorDiv.append("Input string not in correct format.");
+                        $("#load_form_inputs").prepend(errorDiv);
+                    }
                 });
 
                 // Register event handler on 'clear canvas' button
