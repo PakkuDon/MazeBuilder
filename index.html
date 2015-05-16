@@ -34,8 +34,8 @@
                 // Initialise objects
                 var maze = new Maze(0, 0);
                 var maze_graphics = new MazeGraphics("view");
-                var builder = new Builder(maze_graphics);
-                var solver = new Solver(maze_graphics);
+                var builder = new Builder(maze, maze_graphics);
+                var solver = new Solver(maze, maze_graphics);
                 var formUtil = new FormUtility();
 
                 // Populate drop-downs with algorithms from builder and solver
@@ -55,7 +55,7 @@
                     // If validation succeeds, execute algorithm
                     if (formUtil.validateBuildForm(width, height) === true) {
                         builder.setStrategy(algorithm);
-                        builder.build(maze, width, height);
+                        builder.build(width, height);
                     }
                     // Else, display errors
                     else {
@@ -88,7 +88,7 @@
                     // If validation succeeds, execute algorithm
                     if (formUtil.validateSolveForm(startX, startY, endX, endY, maze) === true) {
                         solver.setStrategy(algorithm);
-                        solver.solve(maze, startX, startY, endX, endY);
+                        solver.solve(startX, startY, endX, endY);
                     }
                     // Else, display errors
                     else {
@@ -171,9 +171,9 @@
 
                 // Set delay value
                 $("#timerDelay").change(function() {
-                    var newDelay = $("#timerDelay").val();
-                    builder.delay = newDelay;
-                    solver.delay = newDelay;
+                    var delay = $("#timerDelay").val();
+                    builder.setDelay(delay);
+                    solver.setDelay(delay);
                 });
             });
         </script>

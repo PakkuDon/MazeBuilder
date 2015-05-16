@@ -1,4 +1,4 @@
-function Solver(graphics) {
+function Solver(maze, graphics) {
     this.strategies = {
         "dfs" : {
             "name" : "Depth-first Search",
@@ -20,51 +20,72 @@ function Solver(graphics) {
     this.graphics = graphics;
     this.strategy = null;
     this.delay = 25;
+    this.maze = maze;
+
+    // self - defined to allow functions to refer to instance
+    var self = this;
+
+    this.isRunning = function() {
+        return typeof this.intervalID !== "undefined"
+        && !this.strategy.done;
+    }
 
     this.setStrategy = function(strategy) {
         this.strategy = this.strategies[strategy].algorithm;
     };
 
-    this.solve = function(maze, startX, startY, endX, endY) {
+    this.solve = function(startX, startY, endX, endY) {
         // If solve operation currently being executed,
         // clear previous interval
-        if (typeof this.intervalID != "undefined"
-            && !this.strategy.done) {
+        if (this.isRunning()) {
             clearInterval(this.intervalID);
         }
 
-        // TODO: Validation
+        // Turn given points into x,y pairs
         var startPoint = { x: startX, y: startY };
         var endPoint = { x: endX, y: endY };
 
         // Initialise strategy, maze and canvas
         this.strategy.initialise(maze, startPoint, endPoint);
 
-        // Initialise for graphics
+        // Initialise graphics
         this.graphics.initialise(maze.width, maze.height);
 
-        var self = this;
+        this.intervalID = setInterval(self.step, this.delay);
+    }
 
-        this.intervalID = setInterval(function() {
-            // Perform next step of selected algorithm
-            self.strategy.solve(maze);
+    // Perform next step of algorithm and update view
+    this.step = function() {
+        self.strategy.solve(maze);
 
-            // Draw visited edge
-            var edge = self.strategy.visitedEdges[self.strategy.visitedEdges.length - 1];
-            if (typeof edge !== "undefined") {
-                self.graphics.drawVisitedEdge(edge);
-            }
+        // Draw visited edge
+        var edge = self.strategy
+            .visitedEdges[self.strategy.visitedEdges.length - 1];
+        if (typeof edge !== "undefined") {
+            self.graphics.drawVisitedEdge(edge);
+        }
 
-            // TODO: Draw marker
+        // TODO: Draw marker
 
-            // Remove marker and clear interval when done
-            if (self.strategy.done) {
-                maze.setMarker(-1, -1);
-                clearInterval(self.intervalID);
+        // Remove marker and clear interval when done
+        if (self.strategy.done) {
+            maze.setMarker(-1, -1);
+            clearInterval(self.intervalID);
 
-                var solution = self.strategy.solution;
-                self.graphics.drawSolution(solution);
-            }
-        }, this.delay);
+            var solution = self.strategy.solution;
+            self.graphics.drawSolution(solution);
+        }
+    }
+
+    this.setDelay = function(delay) {
+        // If solver currently executing, stop algorithm
+        if (this.isRunning()) {
+            clearInterval(this.intervalID);
+        }
+        // Restart algorithm with new delay
+        this.delay = delay;
+        if (this.isRunning()) {
+            this.intervalID = setInterval(self.step, this.delay);
+        }
     }
 }
