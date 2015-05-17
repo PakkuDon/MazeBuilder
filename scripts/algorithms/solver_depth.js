@@ -1,3 +1,6 @@
+/**
+ * Generates a maze solution using the Depth-first Search algorithm.
+ */
 function DepthSolver() {
     this.endPoint = null;
     this.visitFlags = [[]];
@@ -7,6 +10,10 @@ function DepthSolver() {
     this.set = new Tree();
     this.solution = [];
 
+    /**
+     * Clears data from previous run and initialises components
+     * for next attempt.
+     */
     this.initialise = function(maze, startPoint, endPoint) {
         this.done = false;
         this.endPoint = maze.grid[endPoint.x][endPoint.y];
@@ -30,7 +37,11 @@ function DepthSolver() {
         this.stack.push(new Edge(null, null, startPoint.x, startPoint.y));
     }
 
+    /**
+     * Executes next step from last saved state.
+     */
     this.solve = function(maze) {
+        // Get next edge to traverse along
         var currentEdge = this.stack.pop();
         var previous = null;
         if (currentEdge.aX != null) {

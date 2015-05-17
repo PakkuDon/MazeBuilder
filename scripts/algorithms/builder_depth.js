@@ -1,3 +1,6 @@
+/**
+ * Constructs a maze using the Depth-first search method.
+ */
 function DepthBuilder () {
     this.visited = [[]];
     this.done = false;
@@ -5,6 +8,10 @@ function DepthBuilder () {
     this.stack = [];
     this.visitedCount = 0;
 
+    /**
+     * Clears data from previous run and initialises components
+     * for next attempt.
+     */
     this.initialise = function(width, height) {
         this.done = false;
 
@@ -30,6 +37,10 @@ function DepthBuilder () {
         this.visitedCount++;
     };
 
+    /**
+     * Returns a list of the unvisited cells adjacent to the cell
+     * at the given location.
+     */
     this.getUnvisitedNeighbours = function(maze, x, y) {
         var grid = maze.grid;
         var neighbours = [];
@@ -73,6 +84,9 @@ function DepthBuilder () {
         return neighbours;
     }
 
+    /**
+     * Executes next step from last saved state.
+     */
     this.build = function(maze) {
         // If all cells visited, set flag and stop processing grid
         if (this.visitedCount == maze.width * maze.height) {

@@ -1,3 +1,6 @@
+/**
+ * Handles basic tasks related to forms such as validation.
+ */
 function FormUtility() {
     this.buildFormErrors = [];
     this.solveFormErrors = [];
@@ -84,7 +87,6 @@ function FormUtility() {
                 }
             }
         }
-
 
         // Return validation result
         if (this.solveFormErrors.length > 0) {

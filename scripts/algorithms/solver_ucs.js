@@ -1,3 +1,6 @@
+/**
+ * Generates a maze solution using the Uniform-Cost Search algorithm.
+ */
 function UniformCostSolver() {
     this.done = false;
     this.endPoint = null;
@@ -8,6 +11,10 @@ function UniformCostSolver() {
     this.visitFlags = [[]];
     this.nodeCost = [[]];
 
+    /**
+     * Clears data from previous run and initialises components
+     * for next attempt.
+     */
     this.initialise = function(maze, startPoint, endPoint) {
         this.done = false;
         this.endPoint = maze.grid[endPoint.x][endPoint.y];
@@ -44,6 +51,9 @@ function UniformCostSolver() {
         this.nodeCost[startPoint.x][startPoint.y] = 0;
     }
 
+    /**
+     * Executes next step from last saved state.
+     */
     this.solve = function(maze) {
         var currentEdge = this.queue.poll();
         var previous = null;

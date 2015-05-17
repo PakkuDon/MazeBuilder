@@ -1,5 +1,4 @@
 /**
- * MazeGraphics
  * Helper class for drawing maze state.
  */
 function MazeGraphics(canvasId) {

@@ -1,3 +1,6 @@
+/**
+ * Generates a maze solution using the Breadth-First Search Algorithm.
+ */
 function BreadthSolver() {
     this.endPoint = null;
     this.visitFlags = [[]];
@@ -7,6 +10,10 @@ function BreadthSolver() {
     this.set = new Tree();
     this.solution = [];
 
+    /**
+     * Clears data from previous run and initialises components
+     * for next attempt.
+     */
     this.initialise = function(maze, startPoint, endPoint) {
         this.done = false;
         this.endPoint = maze.grid[endPoint.x][endPoint.y];
@@ -30,6 +37,9 @@ function BreadthSolver() {
         this.stack.push(new Edge(null, null, startPoint.x, startPoint.y));
     }
 
+    /**
+     * Executes next step from last saved state.
+     */
     this.solve = function(maze) {
         var currentEdge = this.stack.shift();
         var previous = null;

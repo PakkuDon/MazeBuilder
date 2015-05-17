@@ -1,4 +1,10 @@
+/**
+ * Handles maze generation process. Stores references to a group of
+ * pre-defined maze generation algorithms, the graphics module and
+ * the maze itself.
+ */
 function Builder(maze, graphics) {
+    // Available generation algorithms
     this.strategies = {
         "dfs" : {
             "name" : "Depth-first Search",
@@ -25,15 +31,25 @@ function Builder(maze, graphics) {
     // self - defined to allow functions to refer to instance
     var self = this;
 
+    /**
+     * Returns true if maze generation in process.
+     */
     this.isRunning = function() {
         return typeof this.intervalID !== "undefined"
             && !this.strategy.done;
     }
 
+    /**
+     * Sets selected strategy to the strategy associated with the given key.
+     */
     this.setStrategy = function(strategy) {
         this.strategy = this.strategies[strategy].algorithm;
     };
 
+    /**
+     * Initialises necessary components and starts
+     * maze-building task.
+     */
     this.build = function(width, height) {
         // If build operation currently being executed,
         // clear previous interval
@@ -53,7 +69,9 @@ function Builder(maze, graphics) {
         this.intervalID = setInterval(self.step, this.delay);
     }
 
-    // Perform next step of algorithm and update view
+    /**
+     * Performs next step of algorithm and updates view.
+     */
     this.step = function() {
         self.strategy.build(self.maze);
 
@@ -70,6 +88,10 @@ function Builder(maze, graphics) {
         }
     }
 
+    /**
+     * Sets delay between algorithm's steps to the given value.
+     * Pauses and resumes algorithm with new delay if it's running.
+     */
     this.setDelay = function(delay) {
         // If builder currently executing, stop algorithm
         if (this.isRunning()) {

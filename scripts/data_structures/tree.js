@@ -1,17 +1,26 @@
+/**
+ * Part of the Tree data structure defined below. Contains some data
+ * and a reference to this node's parent.
+ */
 function Node(data) {
     this.data = data;
     this.parent = this;
 
+    // Returns a String representation of the contained data.
     this.toString = function() {
         return this.data.toString();
     };
 }
 
+/**
+ * Parent-pointer tree structure. Stores a series of nodes which
+ * contain pointers to their parent node.
+ */
 function Tree() {
     this.nodes = {};
 
     /**
-     * find() - Returns the parent of node.
+     * find() - Returns the parent of a given node.
      */
     this.find = function(node) {
         if (node.parent == node) {

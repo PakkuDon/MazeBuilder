@@ -1,9 +1,16 @@
+/**
+ * Constructs a maze using Randomized Kruskal's method.
+ */
 function KruskalBuilder() {
     this.done = false;
     this.possibleEdges = [];
     this.currentPos = 0;
     this.set = new DisjointSet();
 
+    /**
+     * Clears data from previous run and initialises components
+     * for next attempt.
+     */
     this.initialise = function(width, height) {
         this.set.clear();
         this.currentPos = 0;
@@ -43,6 +50,9 @@ function KruskalBuilder() {
         }
     };
 
+    /**
+     * Executes next step from last saved state.
+     */
     this.build = function(maze) {
         // If all possible edges exhausted, update flag
         if (this.currentPos == this.possibleEdges.length) {

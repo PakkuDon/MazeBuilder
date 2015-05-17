@@ -1,3 +1,7 @@
+/**
+ * Stores values in several non-overlapping sets
+ * Also known as a union-find data structure.
+ */
 function DisjointSet() {
 }
 
@@ -19,6 +23,7 @@ DisjointSet.prototype.find = function(node) {
  * merge() - Attempt to perform union of sets containing values a and b
  */
 DisjointSet.prototype.merge = function(a, b) {
+    // Retrieve nodes containing a and b
     // If either a and b not found in disjoint forest, create new nodes
     var nodeA = this.getNode(a);
     if (nodeA === undefined) {

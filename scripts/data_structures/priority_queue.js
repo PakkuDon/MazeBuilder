@@ -65,6 +65,7 @@ function PriorityQueue() {
 
             var nextIndex = index;
 
+            // Pick node to swap current node with
             if (leftIndex < this.queue.length
                 && this.queue[leftIndex].priority
                 < this.queue[nextIndex].priority)
@@ -78,7 +79,8 @@ function PriorityQueue() {
                 nextIndex = rightIndex;
             }
 
-
+            // If elements at child node out of order with current node
+            // swap nodes and set index to new position of current node
             if (nextIndex != index) {
                 this.swap(index, nextIndex);
                 index = nextIndex;

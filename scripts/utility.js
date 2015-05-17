@@ -1,3 +1,6 @@
+/**
+ * Helper class - performs common tasks.
+ */
 // Empty prototype - just trying to achieve something close
 // to static methods from Java
 function Utility() { }

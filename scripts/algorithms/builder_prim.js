@@ -1,8 +1,15 @@
+/**
+ * Constructs a maze using Randomized Prim's.
+ */
 function PrimBuilder() {
     this.done = false;
     this.edges = [];
     this.set = new DisjointSet();
 
+    /**
+     * Clears data from previous run and initialises components
+     * for next attempt.
+     */
     this.initialise = function(width, height) {
         this.done = false;
         this.set.clear();
@@ -25,6 +32,10 @@ function PrimBuilder() {
             startX - 1, startY));
     }
 
+    /**
+     * Returns a list of cells adjacent to the cell
+     * at the given location.
+     */
     this.getNeighbours = function(maze, x, y) {
         var grid = maze.grid;
         var neighbours = [];
@@ -52,6 +63,9 @@ function PrimBuilder() {
         return neighbours;
     }
 
+    /**
+     * Executes next step from last saved state.
+     */
     this.build = function(maze) {
         // If list of edges exhausted, set flag and stop
         if (this.edges.length == 0) {

@@ -1,4 +1,6 @@
-
+/**
+ * Generates a maze solution using the A* Search Algorithm.
+ */
 function AStarSolver() {
     this.startPoint = null;
     this.endPoint = null;
@@ -10,6 +12,10 @@ function AStarSolver() {
     this.set = new Tree();
     this.solution = [];
 
+    /**
+     * Clears data from previous run and initialises components
+     * for next attempt.
+     */
     this.initialise = function(maze, startPoint, endPoint) {
         this.done = false;
         this.startPoint = maze.grid[startPoint.x][startPoint.y];
@@ -53,6 +59,9 @@ function AStarSolver() {
         this.nodeCost[startPoint.x][startPoint.y] = 0;
     }
 
+    /**
+     * Executes next step from last saved state.
+     */
     this.solve = function(maze) {
         var currentEdge = this.queue.poll();
         var previous = null;
@@ -108,8 +117,8 @@ function AStarSolver() {
     }
 
     /**
-     * getDistance() - Returns the difference between the given cells.
-     * Distance is currently calculated as Manhattan distance.
+     * Returns the difference between the given cells.
+     * Distance is currently calculated in Manhattan distance.
      */
     this.getDistance = function(cellA, cellB) {
         return Math.abs(cellB.x - cellA.x)

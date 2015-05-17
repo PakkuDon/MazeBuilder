@@ -1,4 +1,10 @@
+/**
+ * Handles maze solving process. Stores references to a group of
+ * pre-defined maze solving algorithms, the graphics module and
+ * the maze itself.
+ */
 function Solver(maze, graphics) {
+    // Available maze solving algorithms
     this.strategies = {
         "dfs" : {
             "name" : "Depth-first Search",
@@ -25,15 +31,24 @@ function Solver(maze, graphics) {
     // self - defined to allow functions to refer to instance
     var self = this;
 
+    /**
+     * Returns true if maze generation in process.
+     */
     this.isRunning = function() {
         return typeof this.intervalID !== "undefined"
         && !this.strategy.done;
     }
 
+    /**
+     * Sets selected strategy to the strategy associated with the given key.
+     */
     this.setStrategy = function(strategy) {
         this.strategy = this.strategies[strategy].algorithm;
     };
 
+    /**
+     * Initialises components and starts maze-solving task.
+     */
     this.solve = function(startX, startY, endX, endY) {
         // If solve operation currently being executed,
         // clear previous interval
@@ -54,7 +69,9 @@ function Solver(maze, graphics) {
         this.intervalID = setInterval(self.step, this.delay);
     }
 
-    // Perform next step of algorithm and update view
+    /**
+     * Perform next step of algorithm and update view
+     */
     this.step = function() {
         self.strategy.solve(maze);
 
@@ -74,6 +91,10 @@ function Solver(maze, graphics) {
         }
     }
 
+    /**
+     * Sets delay between algorithm's steps to the given value.
+     * Pauses and resumes algorithm with new delay if it's running.
+     */
     this.setDelay = function(delay) {
         // If solver currently executing, stop algorithm
         if (this.isRunning()) {

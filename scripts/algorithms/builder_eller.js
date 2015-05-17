@@ -1,3 +1,8 @@
+/**
+ * Constructs a maze using Eller's algorithm.
+ * For each row, cells are randomly joined horizontally and then vertically.
+ * Cells are not joined if they are in the same set.
+ */
 function EllerBuilder () {
     this.done = false;
     this.set = new DisjointSet();
@@ -6,6 +11,10 @@ function EllerBuilder () {
     this.currentX = 0;
     this.currentY = 0;
 
+    /**
+     * Clears data from previous run and initialises components
+     * for next attempt.
+     */
     this.initialise = function(width, height) {
         this.done = false;
         this.set.clear();
@@ -24,6 +33,9 @@ function EllerBuilder () {
         this.currentY = 0;
     }
 
+    /**
+     * Executes next step from last saved state.
+     */
     this.build = function(maze) {
         // If last row processed, set flag and return
         if (this.currentY == maze.height - 1
@@ -55,6 +67,10 @@ function EllerBuilder () {
         }
     }
 
+    /**
+     * Randomly creates horizontal joins between adjacent cells. Cells
+     * in the same set are not joined.
+     */
     this.joinAdjacent = function(maze) {
         // If first time iterating through row, make set for each node
         if (this.currentX == 0) {
@@ -104,6 +120,9 @@ function EllerBuilder () {
         }
     }
 
+    /**
+     * Creates vertical joins between each cell set and the cell below it.
+     */
     this.joinSets = function(maze) {
         // Retrieve set from setList hash
         var firstKey = Object.keys(this.setList)[0];
@@ -127,6 +146,9 @@ function EllerBuilder () {
         }
     }
 
+    /**
+     * Randomly joins cells vertically.
+     */
     this.joinVertically = function(maze) {
         // Get cell at current x,y position and the cell below it
         var parentCell = maze.grid[this.currentX][this.currentY];
