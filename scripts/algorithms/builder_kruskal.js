@@ -59,10 +59,8 @@ function KruskalBuilder() {
                 maze.addEdge(edge);
             }
 
-            // Update current index
+            // Update current position in edges array
             this.currentPos++;
-
-            // TODO: Set marker
         }
     };
 }

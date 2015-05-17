@@ -63,11 +63,8 @@ function Builder(maze, graphics) {
                 self.maze.edges[self.maze.edges.length - 1]);
         }
 
-        // TODO: Draw marker
-
-        // Remove marker and clear interval when done
+        // CLear interval when completed
         if (self.strategy.done) {
-            self.maze.setMarker(-1, -1);
             clearInterval(self.intervalID);
             this.intervalID = undefined;
         }

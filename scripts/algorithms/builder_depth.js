@@ -100,7 +100,5 @@ function DepthBuilder () {
                 this.current = this.stack[this.stack.length - 1];
             }
         }
-        // Move marker
-        maze.setMarker(this.current.x, this.current.y);
     };
 }

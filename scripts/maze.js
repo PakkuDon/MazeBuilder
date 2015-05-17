@@ -30,14 +30,6 @@ function Maze(width, height) {
     this.grid = [];
     this.edges = [];
 
-    this.marker = {};
-    this.marker = {
-        prevX: 0,
-        prevY: 0,
-        currX: 0,
-        currY: 0
-    };
-
     // Initialise grid of cells and other fields
     this.initialize = function(width, height) {
         this.width = width;
@@ -64,14 +56,6 @@ function Maze(width, height) {
 
         firstCell.neighbours.push(secondCell);
         secondCell.neighbours.push(firstCell);
-    };
-
-    // Set location of marker object
-    this.setMarker = function(x, y) {
-        this.marker.prevX = this.marker.currX;
-        this.marker.prevY = this.marker.currY;
-        this.marker.currX = x;
-        this.marker.currY = y;
     };
 
     this.load = function(mazeString) {

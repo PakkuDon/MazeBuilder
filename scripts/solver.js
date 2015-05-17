@@ -65,11 +65,8 @@ function Solver(maze, graphics) {
             self.graphics.drawVisitedEdge(edge);
         }
 
-        // TODO: Draw marker
-
-        // Remove marker and clear interval when done
+        // Clear interval and draw solution path when done
         if (self.strategy.done) {
-            maze.setMarker(-1, -1);
             clearInterval(self.intervalID);
 
             var solution = self.strategy.solution;
