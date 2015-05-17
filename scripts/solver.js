@@ -66,6 +66,10 @@ function Solver(maze, graphics) {
         // Initialise graphics
         this.graphics.initialise(maze.width, maze.height);
 
+        // Redraw maze to remove previous solutions
+        this.graphics.clear();
+        this.graphics.drawMaze(maze);
+
         this.intervalID = setInterval(self.step, this.delay);
     }
 
