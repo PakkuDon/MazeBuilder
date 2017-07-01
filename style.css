@@ -21,12 +21,14 @@ header, footer {
 
 canvas {
     background-color: #000000;
+    width: 95%;
+    max-width: 740px;
+    height: auto;
 }
 
 @media(max-width: 480px) {
     canvas {
         width: 100%;
-        height: auto;
     }
 }
 
