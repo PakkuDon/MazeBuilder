@@ -9,6 +9,17 @@ Toy project based off of an assignment from uni. The original assignment was to 
 - JavaScript + jQuery
 - Bootstrap
 
+## Development instructions
+This project has no build process. To view your changes locally start a web server of your choice in the project root. Eg:
+```sh
+npx http-server -c-1 .
+```
+
+To deploy your changes to Github Pages push your branch to `gh-pages`
+```sh
+git push origin <development branch name>:gh-pages
+```
+
 ## Algorithms used
 #### Maze-builder algorithms:
 - Depth-first search
