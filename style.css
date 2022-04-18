@@ -34,10 +34,9 @@ canvas {
 
 footer a {
     color: #EEE;
-    text-decoration: none;
+    text-decoration: underline;
 }
 
 footer a:hover {
     color: #FFF;
-    text-decoration: underline;
 }
