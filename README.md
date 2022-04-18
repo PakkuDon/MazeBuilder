@@ -1,6 +1,6 @@
 # MazeBuilder
 
-[Demo.](http://pakkudon.github.io/MazeBuilder)
+[Demo.](https://pakkudon.github.io/MazeBuilder)
 
 Toy project based off of an assignment from uni. The original assignment was to implement certain maze generation and maze solving algorithms in C++.
 
@@ -24,5 +24,5 @@ Toy project based off of an assignment from uni. The original assignment was to 
 
 ## References
 
-- [Maze generation algorithm - Wikipedia](http://en.wikipedia.org/wiki/Maze_generation_algorithm)
-- [Maze Generation: Eller's Algorithm - The Buckblog](http://weblog.jamisbuck.org/2010/12/29/maze-generation-eller-s-algorithm)
+- [Maze generation algorithm - Wikipedia](https://en.wikipedia.org/wiki/Maze_generation_algorithm)
+- [Maze Generation: Eller's Algorithm - The Buckblog](https://weblog.jamisbuck.org/2010/12/29/maze-generation-eller-s-algorithm)
